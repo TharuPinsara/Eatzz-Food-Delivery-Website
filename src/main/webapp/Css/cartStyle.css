@@ -1,0 +1,185 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: "Montserrat SemiBold", sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.header {
+    background-color: #FF0000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.header .logo img {
+    height: 50px;
+}
+
+.header .nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.header .nav-links li {
+    margin: 0 15px;
+}
+
+.header .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header .nav-links a:hover,
+.header .nav-links a.active {
+    text-decoration: underline;
+}
+
+/* Cart Container Styles */
+.cart-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto; /* Center the container */
+    background: #fff;
+    border-radius: 12px; /* Rounded corners */
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for elegance */
+    border: 1px solid #ddd;
+}
+
+/* Centering "Your Cart" Heading */
+.cart-container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #FF6347; /* Tomato color for uniqueness */
+    position: relative;
+}
+
+.cart-container h1::after {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(to right, #FF512F, #DD2476); /* Gradient underline */
+    margin: 10px auto 0; /* Center the underline */
+    border-radius: 2px;
+}
+
+/* Individual Cart Items */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item img {
+    width: 120px;
+    border-radius: 8px;
+}
+
+.cart-item .item-info h2 {
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+/* Buttons inside the cart (e.g., Remove buttons) */
+.cart-item .item-actions button {
+    background-color: #FF6347; /* Primary button color (Tomato) */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 20px; /* Rounded button edges */
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 8px rgba(255, 99, 71, 0.4); /* Subtle shadow */
+}
+
+.cart-item .item-actions button:hover {
+    background-color: #DD2476; /* Slightly darker tone on hover */
+    transform: scale(1.1); /* Grows slightly */
+}
+
+
+/* Total & Checkout */
+.total-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.total-container h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Checkout Button */
+.checkout-button {
+    display: inline-block; /* Treats the button like inline-block for consistent size */
+    background: linear-gradient(to right, #FF512F, #DD2476); /* Gradient background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 25px; /* Smooth rounded edges */
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 18px; /* Larger text for importance */
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out; /* Smooth hover transition */
+    box-shadow: 0 4px 8px rgba(255, 81, 47, 0.4); /* Subtle shadow */
+}
+
+.checkout-button:hover {
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 6px 15px rgba(255, 81, 47, 0.6); /* Stronger shadow on hover */
+}
+
+
+footer {
+    text-align: center;
+    margin-top: auto; /* Push the footer to the bottom */
+    padding: 10px 0;
+    background-color: #333; /* Dark footer background */
+    color: #fff; /* White text for contrast */
+    font-size: 14px;
+}
+
+/* Empty Cart Message */
+.p1 {
+    text-align: center; /* Center the message */
+    margin-top: 100px; /* Push the message down a bit */
+    font-size: 1.2rem;
+    color: #555; /* Neutral gray for text */
+    font-weight: 500; /* Slightly bolder font */
+    line-height: 1.6;
+}
+
+/* Styling the Link inside the Empty Cart Message */
+.p1 a {
+    color: #FF6347; /* Tomato color for the link */
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent; /* Add an underline effect */
+    transition: all 0.3s ease-in-out;
+}
+
+.p1 a:hover {
+    color: #DD2476; /* Change to a darker tone on hover */
+    border-bottom: 2px solid #DD2476; /* Add underline animation effect */
+}

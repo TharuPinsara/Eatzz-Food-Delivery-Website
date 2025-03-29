@@ -1,0 +1,176 @@
+/* Universal reset and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling with bgimage and bgover layered */
+body {
+    font-family: "Montserrat SemiBold", sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Horizontally center content */
+    align-items: center; /* Vertically center content */
+    padding: 20px; /* Prevent elements from touching edges */
+    position: relative; /* Needed for layering pseudo-elements */
+    overflow: hidden; /* Ensure no overflow for the ::before */
+}
+
+
+
+/* Background Blur for bgimage.jpg */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/bgimage.jpg') no-repeat center / cover;
+    filter: blur(0px); /* Blur applied ONLY to bgimage.jpg */
+    z-index: -2; /* Place it behind everything */
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/bgover.png') no-repeat center center / contain;
+    z-index: 0; /* Lower than the login container */
+    box-shadow: 0 12px 40px rgb(0, 0, 0); /* Adds a soft shadow around the element */
+}
+
+/* Welcome Back Styling */
+.welcome-back {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #252222;
+    position: relative; /* Keep it above all background layers */
+    z-index: 1;
+
+    /* Added: Move welcome-back text a little to the right */
+    transform: translateX(85px); /* Moves 20px to the right */
+    vertical-align: middle;
+}
+
+/* Login Container Styling */
+.login-container {
+    margin-top: -50px;
+    position: relative; /* No absolute positioning needed */
+    z-index: 2; /* Ensure it's above body::after */
+    width: 400px;
+    background-color: rgba(253, 186, 186, 0);
+    padding: 50px;
+    border-radius: 8px;
+    text-align: center;
+
+    /* Added: Move login-container a little to the right */
+    transform: translateX(85px); /* Moves 20px to the right */
+    vertical-align: middle;
+}
+
+.welcome-back {
+    font-family: "Nature Beauty Personal Use", sans-serif;
+}
+
+/* Heading Styling inside Login Container */
+.login-container h2 {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* New Login Form Container Styling */
+.login-form-container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0); /* White background for better distinction */
+    margin-top: 15px;
+
+    /* Added: Move login-form-container a little to the right */
+    transform: translateX(85px); /* Moves 20px to the right */
+    vertical-align: middle;
+}
+
+/* Form Labels */
+.login-form-container label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    color: #000000;
+}
+
+/* Form Inputs */
+.login-form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 0px solid #ccc;
+    border-radius: 7px;
+    font-size: 13px;
+    font-family: "Montserrat SemiBold", sans-serif;
+}
+
+/* Login Button */
+.login-form-container button {
+    font-family: "Montserrat SemiBold", sans-serif;
+    width: 100%;
+    padding: 10px;
+    background-color: #FF0000;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: -40px;
+}
+
+.login-form-container button:hover {
+    background-color: #CC0000; /* Darker red */
+}
+
+/* Style for the register link */
+.register-link {
+    display: inline-block; /* Ensures proper hover area */
+    font-size: 12px; /* Set an appropriate font size */
+    color: #FF0000; /* Set the link color (red in this case) */
+    text-decoration: none; /* Remove underline from the link */
+    margin-top: 15px; /* Add spacing above the link */
+    font-weight: bold; /* Make the link text bold */
+    transition: color 0.3s ease-in-out; /* Smooth hover transition effect */
+}
+
+.register-link:hover {
+    color: #CC0000; /* Darker red on hover */
+    text-decoration: underline; /* Add underline effect on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+p {
+    color: #000000; /* Gray color for the paragraph */
+    font-size: 13px;
+}
+
+.logo-container {
+    text-align: center; /* Center the logo inside the container */
+    margin-bottom: 30px; /* Add spacing below the logo */
+}
+
+.logo2 {
+    width: 100px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensures it behaves well in the container */
+    margin: 0 auto; /* Center the logo inside the container */
+    padding: 10px; /* Optional: Adds some spacing (padding) around the logo */
+    filter: drop-shadow(6px 6px 8px rgba(0, 0, 0, 0.3)); /* Adds shadow with a filter */
+transform: translateX(85px);
+}
+
