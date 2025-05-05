@@ -24,13 +24,19 @@
       margin-top: 10px;
       text-align: center;
     }
+    .error {
+      color: #dc3545; /* Red for error messages */
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
   </style>
   <script>
     // Redirect to index.jsp after 3 seconds if registration is successful
     function redirectToLogin() {
       setTimeout(function() {
         window.location.href = "index.jsp";
-      }, 1500); // 
+      }, 1500); //
     }
   </script>
 </head>
@@ -70,6 +76,10 @@
 
     <label for="phone">Phone Number:</label>
     <input type="text" id="phone" name="phone" placeholder="Enter a 10-digit phone number" required>
+
+    <!-- Add address input field -->
+    <label for="address">Address:</label>
+    <input id="address" name="address" placeholder="Enter your address" required>
 
     <button type="submit">Register</button>
   </form>

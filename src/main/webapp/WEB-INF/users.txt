@@ -1,4 +1,2 @@
-Tharu,Tharu
-Tharu2,Tharu
-Tharu24,Tharu
-Tharu243,Tharu
+Tharu2wsd,Tharu,tharu@gmail.com,0771231234,New York
+Tharu2wsdw,Tharu123,tharu@gmail.com,0771231234,43 Halgasmulla

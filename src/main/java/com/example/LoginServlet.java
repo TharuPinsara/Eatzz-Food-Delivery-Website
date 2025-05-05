@@ -1,3 +1,5 @@
+//Login Page index.jsp
+
 package com.example;
 
 import jakarta.servlet.ServletException;
@@ -33,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username", username);
 
             // Redirect to cart.jsp
-            response.sendRedirect("cart.jsp");
+            response.sendRedirect("/HomePage/");
         } else {
             // Debug: Invalid login
             System.out.println("Invalid username or password.");

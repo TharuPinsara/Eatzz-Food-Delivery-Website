@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.*;
 import java.util.regex.Pattern;
@@ -23,54 +24,34 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve parameters from the form
+        // Retrieve registration details from the form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
 
-        // Debug: Log received input
-        System.out.println("Received username: " + username);
-        System.out.println("Received password: " + password);
-
-        // Validation for empty fields
-        if (username == null || username.isEmpty() ||
-                password == null || password.isEmpty() ||
-                email == null || email.isEmpty() ||
-                phone == null || phone.isEmpty()) {
-            response.sendRedirect("register.jsp?error=Please%20fill%20all%20fields");
+        // Validate email and phone number
+        if (!isValidEmail(email) || !isValidPhone(phone)) {
+            response.sendRedirect("register.jsp?error=Invalid email or phone number.");
             return;
         }
 
-        // Validate email format
-        if (!isValidEmail(email)) {
-            response.sendRedirect("register.jsp?error=Invalid%20email%20address");
-            return;
-        }
-
-        // Validate phone number format (exactly 10 digits)
-        if (!isValidPhone(phone)) {
-            response.sendRedirect("register.jsp?error=Phone%20number%20must%20be%2010%20digits%20long");
-            return;
-        }
-
-        // Check if user already exists
-        System.out.println("Checking if user exists...");
+        // Check if the username already exists
         if (isUserExists(username)) {
-            System.out.println("User exists: " + username);
-            response.sendRedirect("register.jsp?error=User%20already%20exists");
+            response.sendRedirect("register.jsp?error=User already exists. Try a different username.");
             return;
         }
 
-        // Save the user credentials to the file
-        System.out.println("Saving user to file...");
-        saveUserToFile(username, password);
+        // Save user data to the file
+        saveUserToFile(username, password, email, phone, address);
 
-        // Debug: Confirm user saved
-        System.out.println("User saved successfully. Username: " + username);
+        // Create a session and log the user in automatically
+        HttpSession session = request.getSession();
+        session.setAttribute("username", username);
 
-        // Redirect to register.jsp with a success parameter
-        response.sendRedirect("register.jsp?success=Account%20created%20successfully");
+        // Redirect to the cart page (or any other logged-in user page)
+        response.sendRedirect("cart.jsp");
     }
 
     // Helper method to validate email with regex
@@ -85,42 +66,28 @@ public class RegisterServlet extends HttpServlet {
 
     // Check if the user already exists by reading the file
     private boolean isUserExists(String username) throws IOException {
-        File file = new File(getServletContext().getRealPath(USER_FILE));
-        if (!file.exists()) {
-            return false; // If file does not exist, no user exists yet
-        }
-
-        // Read file to check for the username
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        String absolutePath = getServletContext().getRealPath(USER_FILE);
+        try (BufferedReader reader = new BufferedReader(new FileReader(absolutePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userDetails = line.split(",");
-                System.out.println("Checking file entry for username: " + userDetails[0]); // Debug log
-                if (userDetails[0].equals(username)) {
-                    return true; // Username matches
+                if (userDetails[0].trim().equalsIgnoreCase(username)) {
+                    return true; // Username already exists
                 }
             }
         }
         return false;
     }
 
-    // Save user credentials to the file
-    private void saveUserToFile(String username, String password) throws IOException {
-        File file = new File(getServletContext().getRealPath(USER_FILE));
+    // Save user credentials (username, password, email, phone, address) to the file
+    private void saveUserToFile(String username, String password, String email, String phone, String address) throws IOException {
+        String absolutePath = getServletContext().getRealPath(USER_FILE);
+        File file = new File(absolutePath);
+        file.getParentFile().mkdirs();
 
-        // Ensure file and directories exist
-        if (!file.exists()) {
-            file.getParentFile().mkdirs(); // Create parent directories if needed
-            file.createNewFile();         // Create the actual file
-        }
-
-        // Write user data to the file in append mode
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write(username + "," + password); // Save as "username,password"
-            writer.newLine(); // Add a new line for the next entry
-        } catch (IOException e) {
-            e.printStackTrace(); // Log any errors during writing
-            throw e; // Re-throw exception for further handling
+            writer.write(username + "," + password + "," + email + "," + phone + "," + address);
+            writer.newLine();
         }
     }
 }
