@@ -1,0 +1,172 @@
+/* Base styling */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6; /* Softer background color for better focus */
+}
+
+/* Profile container styling */
+.profile-container {
+    max-width: 1200px; /* Expanded width to fit two sections */
+    margin: 60px auto;
+    display: flex; /* Flex layout for side-by-side containers */
+    gap: 20px; /* Adds spacing between the two sections */
+    justify-content: space-between;
+    padding: 30px;
+    background: #fff; /* Crisp white background */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Left Section (Existing details container) */
+.profile-info-container {
+    flex: 2; /* Main section for user info */
+    text-align: left;
+}
+
+.profile-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333; /* Darker text color */
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.profile-info {
+    margin: 20px 0;
+    line-height: 1.8;
+    font-size: 18px;
+    color: #555; /* Softer tone for text */
+}
+
+.profile-info p {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f9fafb; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners for blocks */
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    display: inline-block;
+    width: 90%;
+    max-width: 600px;
+}
+
+.profile-info p strong {
+    color: #b71c1c; /* Highlighted color for labels */
+    font-weight: 600;
+}
+
+/* Right Section (Profile Card Design) */
+/* Center the avatar and username */
+.profile-card {
+    flex: 1;
+    background: #ffffff;
+    border: 2px solid #e3f2fd;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex; /* Enables flexbox layout */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    transition: transform 0.2s ease-in-out;
+}
+
+
+.profile-card:hover {
+    transform: translateY(-5px); /* Lift the card slightly on hover */
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    background: url('${pageContext.request.contextPath}/images/User.png') no-repeat center;
+    background-size: cover;
+}
+
+.profile-card h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0; /* Add spacing around the username */
+    text-align: center; /* Ensure horizontal centering */
+}
+
+.profile-card p.title {
+    font-size: 16px;
+    color: #666; /* Softer tone for title */
+    margin: 5px 0 15px 0;
+}
+
+/* Star Rating Section */
+.star-rating {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.star-rating i {
+    color: #ffc107; /* Golden stars */
+    font-size: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-wrap: wrap; /* Stack containers vertically on smaller screens */
+        padding: 20px;
+    }
+
+    .profile-info-container,
+    .profile-card {
+        flex: 1 1 100%; /* Adjust both containers to occupy full width */
+        text-align: center;
+        margin-bottom: 20px; /* Add spacing between stacked containers */
+    }
+
+    .profile-info p {
+        font-size: 16px;
+        max-width: 100%;
+    }
+
+    .profile-card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%; /* Circular image */
+        border: 3px solid #e0e0e0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-bottom: 15px; /* Add spacing below the avatar */
+    }
+
+}
+/* Edit Button Styling */
+.profile-card .edit-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px; /* Button padding */
+    font-size: 16px; /* Text size */
+    color: #ffffff; /* White text color */
+    background-color: #da0000; /* Classic blue button */
+    border: none;
+    border-radius: 5px; /* Smooth rounded corners */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+/* Hover effect for button */
+.profile-card .edit-button:hover {
+    background-color: #da0000; /* Darker blue on hover */
+}

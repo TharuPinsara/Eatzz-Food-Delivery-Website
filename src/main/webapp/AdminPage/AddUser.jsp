@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
     <!-- Link to Add User CSS -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AddUser.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AdminCss/StyleDashboard.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AdminCss/AddUser.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,7 +20,7 @@
             background-size: cover;
         }
 
-    /* Popup container styling */
+        /* Popup container styling */
         .popup-container {
             position: fixed;
             top: 20px;
@@ -85,32 +86,16 @@
 </head>
 <body>
 <div class="dashboard">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="<%= request.getContextPath() %>/AdminPage/Eatzz.png" alt="Eatzz Logo" class="logo-image" />
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/AdminPage/AdminDashboard.jsp">🏠 Home</a></li>
-                <li><a href="/AdminPage/AddUser.jsp" class="active">👥 Users</a></li>
-                <li><a href="#">📊 Charts</a></li>
-                <li><a href="#">⚙️ Settings</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <jsp:include page="/AdminPage/AdminSideBar.jsp"/>
 
     <!-- Main Content -->
     <main class="main-content">
         <section class="main-section">
             <!-- Add User Header -->
-            <div class="section-header">
-                <h1>Add New User</h1>
-            </div>
 
             <!-- Add User Form -->
             <div class="form-container">
-                <h2>Fill User Details</h2>
+                <h2>Add New User Details</h2>
 
                 <form method="POST" action="<%= request.getContextPath() %>/CreateUserServlet">
                     <label for="username">Username:</label>

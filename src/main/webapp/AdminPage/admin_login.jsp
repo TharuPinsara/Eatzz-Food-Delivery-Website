@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Admin Login</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/StyleAdmin.css">
+    <link rel="stylesheet" href="/AdminPage/StyleAdmin.css">
 </head>
 <body>
 <div class="login-box">

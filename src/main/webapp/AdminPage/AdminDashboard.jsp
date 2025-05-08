@@ -14,196 +14,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/StyleDashboard.css">
-    <style>
-        /* Popup container styling (preserved) */
-        .popup-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 15px 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: none; /* Hidden by default */
-            font-family: 'Montserrat Medium', sans-serif;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease; /* Smooth fade-in animation */
-        }
-
-        .popup-container.success {
-            border-left: 6px solid #4CAF50; /* Green success indicator */
-        }
-
-        .popup-container.error {
-            border-left: 6px solid #F44336; /* Red error indicator */
-        }
-
-        .popup-container h4 {
-            font-size: 16px;
-            margin: 0 0 5px 0;
-            color: #333;
-        }
-
-        .popup-container p {
-            font-size: 14px;
-            margin: 0;
-            color: #555;
-        }
-
-        .popup-container .close-btn {
-            background: none;
-            border: none;
-            font-size: 16px;
-            color: #999;
-            cursor: pointer;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            transition: color 0.3s;
-        }
-
-        .popup-container .close-btn:hover {
-            color: #333;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Enhanced user table styles */
-        .user-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-family: 'Montserrat', sans-serif;
-            background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-table th,
-        .user-table td {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        .user-table th {
-            background-color: #f4f4f9;
-            color: #333;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            border-bottom: 2px solid #ddd;
-        }
-
-        .user-table tbody tr {
-            transition: background-color 0.3s ease;
-        }
-
-        .user-table tbody tr:nth-child(even) {
-            background-color: #f9f9f9; /* Striped effect */
-        }
-
-        .user-table tbody tr:hover {
-            background-color: #e8f0ff;
-            cursor: pointer;
-        }
-
-        /* Action buttons inside the table */
-        .action-form button {
-            padding: 8px 12px;
-            font-size: 14px;
-            font-family: 'Montserrat Medium', sans-serif;
-            border: none;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-            text-transform: uppercase;
-            gap: 5px;
-        }
-
-        .action-form button.edit-btn {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        .action-form button.edit-btn:hover {
-            background-color: #43a047;
-        }
-
-        .action-form button.delete-btn {
-            background-color: #e53935; /* Red */
-            color: white;
-        }
-
-        .action-form button.delete-btn:hover {
-            background-color: #d32f2f; /* Darker red */
-        }
-
-        /* Responsive adjustments for smaller screens */
-        @media only screen and (max-width: 768px) {
-            .user-table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            .user-table th,
-            .user-table td {
-                padding: 10px;
-            }
-
-            .action-form button {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AdminCss/StyleDashboard.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AdminCss/AdminDashboard.css">
 </head>
 <body>
 <div class="dashboard">
+    <jsp:include page="/AdminPage/AdminSideBar.jsp"/>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="<%= request.getContextPath() %>/AdminPage/Eatzz.png" alt="Eatzz Logo" class="logo-image">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/AdminPage/AdminDashboard.jsp" class="active">🏠 Home</a></li>
-                <li><a href="/AdminPage/AddUser.jsp">👤 Add User</a></li>
-                <li><a href="#">📊 Charts</a></li>
-                <li><a href="#">⚙️ Settings</a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Main Content -->
     <main class="main-content">
         <header class="top-bar">
             <h1>Welcome, Admin!</h1>
-
-            <!-- Search Bar -->
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search for users..." onkeyup="filterTable()" />
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTable()" />
                 <button type="button">🔍</button>
             </div>
             <div class="profile-dropdown">
-                <span><b><%= session.getAttribute("adminUser") != null ? session.getAttribute("adminUser") : "Admin" %></b></span>
-                <a href="<%= request.getContextPath() %>/LogoutServlet">(Logout)</a>
+                <div class="profile-toggle">
+                    <span><b><%= session.getAttribute("adminUser") != null ? session.getAttribute("adminUser") : "Admin" %></b></span>
+                    <span>▼</span>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="#">Profile</a>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet">Logout</a>
+                </div>
             </div>
         </header>
 
@@ -215,64 +48,147 @@
                 <p id="popupBody"></p>
             </div>
 
-            <h2>User Management</h2>
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" onclick="openTab('users')">User Management</button>
+                <button class="tab-button" onclick="openTab('food')">Food Item Management</button>
+            </div>
 
-            <!-- Enhanced User Table -->
-            <table id="userTable" class="user-table">
-                <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Actions</th>
+            <!-- User Management Tab -->
+            <div id="users" class="tab-content active">
+                <h2>User Management</h2>
+                <table id="userTable" class="user-table">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        String userFilePath = application.getRealPath("/") + "WEB-INF/users.txt";
+                        File userFile = new File(userFilePath);
 
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    // Code to fetch user data from users.txt
-                    String filePath = application.getRealPath("WEB-INF/users.txt");
-                    File usersFile = new File(filePath);
-                    if (usersFile.exists() && usersFile.canRead()) {
-                        try (BufferedReader br = new BufferedReader(new FileReader(usersFile))) {
-                            String line;
-                            while ((line = br.readLine()) != null) {
-                                String[] userDetails = line.split(",");
-                                String username = userDetails.length > 0 ? userDetails[0] : "N/A";
-                                String email = userDetails.length > 2 ? userDetails[2] : "N/A";
-                                String phone = userDetails.length > 3 ? userDetails[3] : "N/A";
-                                String address = userDetails.length > 4 ? userDetails[4] : "N/A";
-                %>
-                <tr>
-                    <td><%= username %></td>
-                    <td><%= email %></td>
-                    <td><%= phone %></td>
-                    <td><%= address %></td>
+                        if (userFile.exists()) {
+                            if (userFile.canRead()) {
+                                try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
+                                    String line;
+                                    boolean hasData = false;
 
-                    <td>
-                        <div class="action-form">
-                            <form method="GET" action="<%= request.getContextPath() %>/EditUserServlet">
-                                <input type="hidden" name="username" value="<%= username %>">
-                                <button type="submit" class="edit-btn">Edit</button>
-                            </form>
-                            <form method="POST" action="<%= request.getContextPath() %>/DeleteUserServlet">
-                                <input type="hidden" name="username" value="<%= username %>">
-                                <button type="submit" class="delete-btn">Delete</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                <%      }
-                } catch (IOException e) {
-                    out.println("<tr><td colspan='4'>Error reading users file.</td></tr>");
-                }
-                } else {
-                    out.println("<tr><td colspan='4'>No user data available.</td></tr>");
-                }
-                %>
-                </tbody>
-            </table>
+                                    while ((line = br.readLine()) != null) {
+                                        hasData = true;
+                                        String[] userDetails = line.split(",");
+                                        if (userDetails.length >= 5) {
+                    %>
+                    <tr>
+                        <td><%= userDetails[0] %></td>
+                        <td><%= userDetails[2] %></td>
+                        <td><%= userDetails[3] %></td>
+                        <td><%= userDetails[4] %></td>
+                        <td>
+                            <div class="action-form">
+                                <form method="GET" action="<%= request.getContextPath() %>/EditUserServlet">
+                                    <input type="hidden" name="username" value="<%= userDetails[0] %>">
+                                    <button type="submit" class="edit-btn">Edit</button>
+                                </form>
+                                <form method="POST" action="<%= request.getContextPath() %>/DeleteUserServlet">
+                                    <input type="hidden" name="username" value="<%= userDetails[0] %>">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <%
+                                        }
+                                    }
+
+                                    if (!hasData) {
+                                        out.println("<tr><td colspan='5'>No users found in file</td></tr>");
+                                    }
+                                } catch (IOException e) {
+                                    out.println("<tr><td colspan='5'>Error reading users file: " + e.getMessage() + "</td></tr>");
+                                }
+                            } else {
+                                out.println("<tr><td colspan='5'>No permission to read users file</td></tr>");
+                            }
+                        } else {
+                            out.println("<tr><td colspan='5'>User file not found at: " + userFilePath + "</td></tr>");
+                        }
+                    %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Food Item Management Tab -->
+            <div id="food" class="tab-content">
+                <h2>Food Item Management</h2>
+                <table id="foodTable" class="food-table">
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price (LKR)</th>
+                        <th>Store</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        String foodFilePath = application.getRealPath("/") + "WEB-INF/fooditems.txt";
+                        File foodFile = new File(foodFilePath);
+
+                        if (foodFile.exists()) {
+                            if (foodFile.canRead()) {
+                                try (BufferedReader br = new BufferedReader(new FileReader(foodFile))) {
+                                    String line;
+                                    boolean hasData = false;
+
+                                    while ((line = br.readLine()) != null) {
+                                        hasData = true;
+                                        String[] foodDetails = line.split(",");
+                                        if (foodDetails.length >= 4) {
+                    %>
+                    <tr>
+                        <td><img src="<%= foodDetails[3].trim() %>" alt="<%= foodDetails[0].trim() %>" class="food-image"></td>
+                        <td><%= foodDetails[0].trim() %></td>
+                        <td><%= foodDetails[1].trim() %></td>
+                        <td><%= foodDetails[2].trim() %></td>
+                        <td>
+                            <div class="action-form">
+                                <form method="GET" action="<%= request.getContextPath() %>/EditFoodItemServlet">
+                                    <input type="hidden" name="name" value="<%= foodDetails[0].trim() %>">
+                                    <button type="submit" class="edit-btn">Edit</button>
+                                </form>
+                                <form method="POST" action="<%= request.getContextPath() %>/DeleteFoodItemServlet">
+                                    <input type="hidden" name="name" value="<%= foodDetails[0].trim() %>">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <%
+                                        }
+                                    }
+
+                                    if (!hasData) {
+                                        out.println("<tr><td colspan='5'>No food items found in file</td></tr>");
+                                    }
+                                } catch (IOException e) {
+                                    out.println("<tr><td colspan='5'>Error reading food items file: " + e.getMessage() + "</td></tr>");
+                                }
+                            } else {
+                                out.println("<tr><td colspan='5'>No permission to read food items file</td></tr>");
+                            }
+                        } else {
+                            out.println("<tr><td colspan='5'>Food items file not found at: " + foodFilePath + "</td></tr>");
+                        }
+                    %>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 </div>
@@ -302,6 +218,18 @@
                     title.innerText = 'User Edited';
                     body.innerText = 'The user details have been successfully updated.';
                     break;
+                case 'foodCreated':
+                    title.innerText = 'Food Item Created';
+                    body.innerText = 'The food item has been successfully added.';
+                    break;
+                case 'foodDeleted':
+                    title.innerText = 'Food Item Deleted';
+                    body.innerText = 'The food item has been successfully removed.';
+                    break;
+                case 'foodUpdated':
+                    title.innerText = 'Food Item Updated';
+                    body.innerText = 'The food item details have been successfully updated.';
+                    break;
                 default:
                     title.innerText = 'Success';
                     body.innerText = successMessage;
@@ -322,23 +250,68 @@
         popup.style.display = 'none';
     }
 
-    // Filter rows in the user table based on search input
+    // Tab functionality
+    function openTab(tabName) {
+        console.log('Opening tab: ' + tabName); // Debug log
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Remove active class from all tab buttons
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Show the selected tab content
+        document.getElementById(tabName).classList.add('active');
+
+        // Add active class to the clicked button
+        event.currentTarget.classList.add('active');
+
+        // Reset search when switching tabs
+        document.getElementById('searchInput').value = '';
+        filterTable();
+    }
+
+    // Enhanced filter function for both tables
     function filterTable() {
         const input = document.getElementById('searchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#userTable tbody tr');
+        const activeTab = document.querySelector('.tab-content.active').id;
+        const tableId = activeTab === 'users' ? 'userTable' : 'foodTable';
+        const rows = document.querySelectorAll(`#${tableId} tbody tr`);
 
         rows.forEach(row => {
-            const username = row.cells[0].innerText.toLowerCase();
-            const email = row.cells[2].innerText.toLowerCase();
-            const phone = row.cells[3].innerText.toLowerCase();
+            let shouldShow = false;
+            const cells = row.querySelectorAll('td');
 
-            if (username.includes(input) || email.includes(input) || phone.includes(input)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
+            // Skip image cells and action cells
+            for (let i = 0; i < cells.length - 1; i++) {
+                if (cells[i].querySelector('img') === null) { // Skip image cells
+                    if (cells[i].innerText.toLowerCase().includes(input)) {
+                        shouldShow = true;
+                        break;
+                    }
+                }
             }
+
+            row.style.display = shouldShow ? '' : 'none';
         });
     }
+
+    // Toggle dropdown menu on click for better mobile support
+    document.querySelector('.profile-toggle').addEventListener('click', function () {
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        dropdownMenu.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        if (!profileDropdown.contains(event.target)) {
+            document.querySelector('.dropdown-menu').classList.remove('active');
+        }
+    });
 </script>
 </body>
 </html>

@@ -1,0 +1,655 @@
+/* General styling with Montserrat Medium font applied globally */
+body {
+    font-family: 'Montserrat Medium', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.dashboard {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Main content area */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    font-family: 'Montserrat Medium', sans-serif;
+}
+
+/* Popup container styling */
+.popup-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
+
+.popup-container.success {
+    border-left: 6px solid #4CAF50;
+}
+
+.popup-container.error {
+    border-left: 6px solid #F44336;
+}
+
+.popup-container h4 {
+    font-size: 16px;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.popup-container p {
+    font-size: 14px;
+    margin: 0;
+    color: #555;
+}
+
+.popup-container .close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #999;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: color 0.3s;
+}
+
+.popup-container .close-btn:hover {
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced table styles */
+.user-table, .food-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th, .user-table td,
+.food-table th, .food-table td {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.user-table th, .food-table th {
+    background-color: #f4f4f9;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-bottom: 2px solid #ddd;
+}
+
+.user-table tbody tr, .food-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.user-table tbody tr:nth-child(even),
+.food-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.user-table tbody tr:hover,
+.food-table tbody tr:hover {
+    background-color: #e8f0ff;
+    cursor: pointer;
+}
+
+/* Action buttons */
+.action-form button {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    gap: 5px;
+}
+
+.action-form button.edit-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.action-form button.edit-btn:hover {
+    background-color: #43a047;
+}
+
+.action-form button.delete-btn {
+    background-color: #e53935;
+    color: white;
+}
+
+.action-form button.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Tab navigation */
+.tab-navigation {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.3s;
+}
+
+.tab-button.active {
+    color: #d63031;
+    border-bottom-color: #d63031;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Food image styling */
+.food-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Interactive Header Styling */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff, #f4f4f9);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.top-bar h1 {
+    font-size: 24px;
+    color: #d63031;
+    margin: 0;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.top-bar h1:hover {
+    transform: scale(1.05);
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.search-bar input {
+    padding: 10px 40px 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    width: 200px;
+    background-color: #fff;
+    transition: width 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar input:focus {
+    width: 250px;
+    outline: none;
+    border-color: #d63031;
+    box-shadow: 0 0 8px rgba(214, 48, 49, 0.2);
+}
+
+.search-bar button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.search-bar button:hover {
+    color: #d63031;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-dropdown .profile-toggle {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background: #d63031;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.profile-dropdown .profile-toggle:hover {
+    background: #b71c1c;
+    transform: scale(1.05);
+}
+
+.profile-dropdown .profile-toggle span {
+    margin-right: 8px;
+}
+
+.profile-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 150px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.profile-dropdown:hover .dropdown-menu,
+.profile-dropdown .dropdown-menu.active {
+    display: block;
+}
+
+.profile-dropdown .dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.profile-dropdown .dropdown-menu a:hover {
+    background: #f4f4f9;
+    color: #d63031;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+    .user-table, .food-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .user-table th, .user-table td,
+    .food-table th, .food-table td {
+        padding: 10px;
+    }
+
+    .action-form button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .search-bar input {
+        width: 100%;
+    }
+
+    .search-bar input:focus {
+        width: 100%;
+    }
+
+    .profile-dropdown {
+        align-self: flex-end;
+    }
+}
+
+.top-bar {
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.profile-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* Main section header */
+.main-section {
+    padding: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.add-user-btn {
+    background-color: #ff004d;
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-user-btn:hover {
+    background-color: #e4004d;
+}
+
+/* User grid */
+.user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.user-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Montserrat Medium', sans-serif;
+}
+
+/* User avatar circle */
+.user-avatar {
+    background: #ff004d;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.user-info h3 {
+    font-size: 18px;
+}
+
+.user-info p {
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* User list */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons for Edit and Delete*/
+.action-form {
+    display: flex;
+    gap: 10px;
+}
+
+.action-form button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: 'Montserrat Medium', sans-serif;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Edit Button */
+.action-form button.edit-btn {
+    background-color: #555555;
+    color: white;
+}
+
+.action-form button.edit-btn:hover {
+    background-color: #606060;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Delete Button */
+.action-form button.delete-btn {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.action-form button.delete-btn:hover {
+    background-color: #c62828;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Adding optional icons for edit and delete buttons */
+.action-form button.edit-btn::before {
+    content: '✏️';
+    font-size: 18px;
+}
+
+.action-form button.delete-btn::before {
+    content: '🗑️';
+    font-size: 18px;
+}
+
+/* Success Message Styling */
+.success-message {
+    color: #ffffff;
+    background-color: #2e7d32;
+    border-left: 6px solid #1b5e20;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #ffffff;
+    background-color: #d32f2f;
+    border-left: 6px solid #b71c1c;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Logo Image Styling */
+.sidebar-logo img.logo-image {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+/* Top bar styling */
+.top-bar {
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Search Bar Styles */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 8px 12px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Montserrat Medium', sans-serif;
+}
+
+.search-bar button {
+    padding: 6px 10px;
+    font-size: 14px;
+    font-family: 'Montserrat Medium', sans-serif;
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #0277bd;
+}
+
+/* Responsive search bar on smaller screens */
+@media (max-width: 768px) {
+    .search-bar input {
+        width: 100%;
+    }
+}
+
+/* Sidebar Styles (moved from inline) */
+.sidebar {
+    flex: 0 0 200px;
+    background-color: #b71c1c;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: 'Montserrat Medium', sans-serif;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-family: 'Montserrat Medium', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+    background-color: #e57373;
+}

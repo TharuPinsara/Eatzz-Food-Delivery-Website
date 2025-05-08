@@ -51,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
         session.setAttribute("username", username);
 
         // Redirect to the cart page (or any other logged-in user page)
-        response.sendRedirect("cart.jsp");
+        response.sendRedirect("/HomePage/");
     }
 
     // Helper method to validate email with regex

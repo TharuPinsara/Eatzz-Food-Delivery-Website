@@ -7,55 +7,22 @@ body {
     background-color: #f9f9f9; /* Light background for simplicity */
 }
 
-/* Common styling for the sidebar (unchanged) */
-.sidebar {
-    background-color: #b71c1c; /* Red sidebar background */
-    color: #ffffff;
-    height: 100vh;
-    width: 250px;
-    position: fixed;
+.dashboard {
     display: flex;
-    flex-direction: column;
-    padding: 10px 0;
+    min-height: 100vh;
 }
 
-.sidebar-logo {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ffffff; /* Logo in white */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    margin-left: 200px; /* Matches sidebar width */
+    min-height: 100vh;
 }
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav ul li {
-    margin: 10px 0;
-}
-
-.sidebar nav ul li a {
-    text-decoration: none;
-    color: #ffffff; /* White text for sidebar links */
-    padding: 10px 20px;
-    display: block;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.sidebar nav ul li a.active,
-.sidebar nav ul li a:hover {
-    background-color: #e57373; /* Lighter red for hover or active state */
-    color: white;
-}
-
 /* Main content area */
 .main-content {
-    margin-left: 250px; /* Matches the sidebar's width */
-    padding: 40px;
-    background-color: #ffffff; /* Clean white background for content */
+    margin-left: 0px; /* Matches the sidebar's width */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.51); /* Clean white background for content */
     min-height: 100vh;
     box-sizing: border-box;
     border-radius: 8px; /* Rounded edges for content area */
@@ -194,15 +161,8 @@ body {
         padding: 20px;
     }
 
-    .form-container {
+    .form-conontainer {
         padding: 20px;
         margin: 20px auto;
     }
-}
-/* Logo Image Styling */
-.sidebar-logo img.logo-image {
-    width: 100px; /* Adjust the width of the logo */
-    height: auto;
-    display: block;
-    margin: 0 auto 20px; /* Center the logo and add spacing below */
 }

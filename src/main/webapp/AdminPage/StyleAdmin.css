@@ -1,7 +1,7 @@
 /* General Body Styling with Full-Page Background Image */
 body {
     font-family: 'Montserrat Medium', sans-serif;
-    background: url('../images/AdminBg.jpg') no-repeat center center fixed; /* Background image */
+    background: url('src/main/webapp/images/AdminBg.jpg') no-repeat center center fixed; /* Background image */
     background-size: cover; /* Ensures the image covers the full page */
     margin: 0;
     padding: 0;

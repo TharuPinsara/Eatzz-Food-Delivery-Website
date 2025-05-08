@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.menu.service;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
