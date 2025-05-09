@@ -1,0 +1,156 @@
+/* Base styling */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6; /* Softer background for better focus */
+}
+
+/* Profile container styling */
+.profile-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    display: flex; /* Flex layout for side-by-side containers */
+    gap: 20px; /* Adds spacing between the two sections */
+    justify-content: space-between;
+    padding: 30px;
+    background: #fff; /* Crisp white background */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Left Section: Form Styling */
+.profile-info-container {
+    flex: 2; /* Takes up more width */
+    padding: 20px;
+    border-right: 1px solid #eee; /* Separator for form and profile card */
+}
+
+.profile-info-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    display: inline-block;
+    padding-bottom: 5px; /* Underline with padding */
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px; /* Spacing between form elements */
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px; /* Spacing between label and input */
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9fafb; /* Light input background */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    transition: border-color 0.2s ease-in-out; /* Smooth focus change */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #da0000; /* Highlight border on focus */
+    outline: none; /* Remove default blue outline */
+}
+
+textarea {
+    resize: none; /* Disable resizing for textareas */
+}
+
+.btn-submit {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* White text color */
+    background-color: #da0000; /* Primary button color */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Light shadow */
+    transition: 0.3s all ease-in-out; /* Smooth hover transition */
+}
+
+.btn-submit:hover {
+    background-color: #da0000; /* Slightly lighter color on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Darker hover shadow */
+}
+
+/* Profile Card (Right section) */
+.profile-card {
+    flex: 1; /* Takes up smaller width */
+    background: #ffffff;
+    border: 2px solid #e3f2fd; /* Subtle blue border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    text-align: center; /* Center text and content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out; /* Smooth hover animation */
+}
+
+.profile-card:hover {
+    transform: translateY(-5px); /* Lift the card slightly on hover */
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Circular image */
+    border: 3px solid #e0e0e0; /* Subtle border around the image */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    object-fit: cover; /* Ensure the image is centered and covers */
+}
+
+.profile-card h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.profile-card p.title {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0 15px 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-wrap: wrap; /* Stack sections vertically */
+        padding: 20px;
+    }
+
+    .profile-info-container,
+    .profile-card {
+        flex: 1 1 100%; /* Let both sections take full width */
+        margin-bottom: 20px;
+    }
+
+    .profile-card img {
+        width: 100px;
+        height: 100px;
+    }
+}

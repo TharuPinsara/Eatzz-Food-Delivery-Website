@@ -9,6 +9,7 @@
     <ul class="nav-links">
       <li><a href="<%= request.getContextPath() %>/HomePage/">Home</a></li>
       <li><a href="<%= request.getContextPath() %>/Menu/MenuPage.jsp">Menu</a></li>
+      <li><a href="<%= request.getContextPath() %>/RestaurantPage/RestaurantPage.jsp">Restaurants</a></li>
       <li>
         <a href="<%= request.getContextPath() %>/cart.jsp" class="cart-link">
           Cart <span id="headerCartCount" class="cart-count">0</span>
