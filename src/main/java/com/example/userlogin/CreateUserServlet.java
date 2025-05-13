@@ -1,6 +1,6 @@
 //Admin Page Create User
 
-package com.example.servlet;
+package com.example.userlogin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

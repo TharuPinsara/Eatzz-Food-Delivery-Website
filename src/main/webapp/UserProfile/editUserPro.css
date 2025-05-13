@@ -1,4 +1,4 @@
-/* Base styling */
+    /* Base styling */
 body {
     font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
@@ -100,7 +100,8 @@ textarea {
     background: #ffffff;
     border: 2px solid #e3f2fd; /* Subtle blue border */
     border-radius: 20px; /* Rounded corners */
-    padding: 30px;
+    padding: 20px; /* Reduced padding to decrease height */
+    max-height: 350px; /* Constrain maximum height */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
     text-align: center; /* Center text and content */
     display: flex;
@@ -120,7 +121,7 @@ textarea {
     border-radius: 50%; /* Circular image */
     border: 3px solid #e0e0e0; /* Subtle border around the image */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduced margin to compact layout */
     object-fit: cover; /* Ensure the image is centered and covers */
 }
 

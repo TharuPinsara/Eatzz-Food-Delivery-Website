@@ -1,6 +1,6 @@
 //Admin page Logout
 
-package com.example;
+package com.example.userlogin;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
