@@ -112,7 +112,6 @@
       color: #666;
       margin: 5px 0;
     }
-
   </style>
   <script>
     // Function to show popup message
@@ -146,7 +145,7 @@
 <div class="profile-container">
   <!-- Popup container -->
   <div class="popup-container">
-    <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+    <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
     <h4></h4>
   </div>
 
@@ -197,6 +196,11 @@
       </div>
 
       <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter new password (optional)">
+      </div>
+
+      <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<%= email %>" required>
       </div>
@@ -213,6 +217,10 @@
 
       <button type="submit" class="btn-submit">Save Changes</button>
       <a href="<%= request.getContextPath() %>/UserProfile/profile.jsp" class="btn-cancel">Cancel</a>
+    </form>
+    <form action="<%= request.getContextPath() %>/DeleteProfileServlet" method="post" style="display: inline;">
+      <input type="hidden" name="username" value="<%= username %>">
+      <button type="submit" class="btn-cancel" onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">Delete Account</button>
     </form>
   </div>
 

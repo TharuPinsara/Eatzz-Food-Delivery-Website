@@ -314,7 +314,7 @@
         const totalElement = document.getElementById('cartTotal');
 
         if (cart.length === 0) {
-            cartContainer.innerHTML = '<div class="empty-cart">Your cart is empty. <a href="/Menu/MenuPage.jsp">Browse our menu</a> to add items!</div>';
+            cartContainer.innerHTML = '<div class="empty-cart">Your cart is empty. <a href="/Restaurants">Browse our menu</a> to add items!</div>';
             totalElement.textContent = 'LKR 0.00';
             document.getElementById('checkoutBtn').disabled = true;
             return;
@@ -401,9 +401,32 @@
 
     document.getElementById('checkoutBtn').addEventListener('click', function() {
         if (cart.length > 0) {
-            alert('Proceeding to checkout with ' + cart.reduce((sum, item) => sum + item.quantity, 0) + ' items');
-            // In a real application, redirect to checkout page
-            // window.location.href = 'CheckoutPage.jsp';
+            // Create form to send cart data as parameters
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/checkout';
+
+            cart.forEach((item, index) => {
+                const fields = [
+                    { name: `cart.id`, value: item.id },
+                    { name: `cart.name`, value: item.name },
+                    { name: `cart.price`, value: item.price.toString() },
+                    { name: `cart.image`, value: item.image },
+                    { name: `cart.store`, value: item.store },
+                    { name: `cart.quantity`, value: item.quantity.toString() }
+                ];
+
+                fields.forEach(field => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = field.name;
+                    input.value = field.value;
+                    form.appendChild(input);
+                });
+            });
+
+            document.body.appendChild(form);
+            form.submit();
         }
     });
 

@@ -1,4 +1,4 @@
-<%@ page import="java.io.*" %>
+<%@ page import="java.io.*, com.example.restaurant.Restaurant, com.example.restaurant.RestaurantUtil, java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     // Check if "adminUser" attribute exists in the session; if not, redirect to the login page
@@ -14,8 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AdminCss/StyleDashboard.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/AdminCss/AdminDashboard.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/AdminPage/StyleDashboard.css">
 </head>
 <body>
 <div class="dashboard">
@@ -24,18 +23,20 @@
     <main class="main-content">
         <header class="top-bar">
             <h1>Welcome, Admin!</h1>
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTable()" />
-                <button type="button">🔍</button>
-            </div>
-            <div class="profile-dropdown">
-                <div class="profile-toggle">
-                    <span><b><%= session.getAttribute("adminUser") != null ? session.getAttribute("adminUser") : "Admin" %></b></span>
-                    <span>▼</span>
+            <div class="top-bar-right">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTable()" />
+                    <button type="button">🔍</button>
                 </div>
-                <div class="dropdown-menu">
-                    <a href="#">Profile</a>
-                    <a href="<%= request.getContextPath() %>/LogoutServlet">Logout</a>
+                <div class="profile-dropdown">
+                    <div class="profile-toggle">
+                        <span><b><%= session.getAttribute("adminUser") != null ? session.getAttribute("adminUser") : "Admin" %></b></span>
+                        <span>▼</span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="#">Profile</a>
+                        <a href="<%= request.getContextPath() %>/LogoutServlet">Logout</a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -52,6 +53,8 @@
             <div class="tab-navigation">
                 <button class="tab-button active" onclick="openTab('users')">User Management</button>
                 <button class="tab-button" onclick="openTab('food')">Food Item Management</button>
+                <button class="tab-button" onclick="openTab('restaurants')">Restaurant Management</button>
+                <button class="tab-button" onclick="openTab('orders')">Order Management</button>
             </div>
 
             <!-- User Management Tab -->
@@ -189,6 +192,140 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Restaurant Management Tab -->
+            <div id="restaurants" class="tab-content">
+                <h2>Restaurant Management</h2>
+                <table id="restaurantTable" class="restaurant-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        try {
+                            List<Restaurant> restaurants = RestaurantUtil.loadRestaurants(application);
+                            if (restaurants.isEmpty()) {
+                                out.println("<tr><td colspan='4'>No restaurants found</td></tr>");
+                            } else {
+                                for (Restaurant r : restaurants) {
+                    %>
+                    <tr>
+                        <td><%= r.getName() %></td>
+                        <td><%= r.getAddress() %></td>
+                        <td><%= r.getPhoneNumber() %></td>
+                        <td>
+                            <div class="action-form">
+                                <form method="GET" action="<%= request.getContextPath() %>/EditRestaurantServlet">
+                                    <input type="hidden" name="name" value="<%= r.getName() %>">
+                                    <button type="submit" class="edit-btn">Edit</button>
+                                </form>
+                                <form method="POST" action="<%= request.getContextPath() %>/DeleteRestaurantServlet">
+                                    <input type="hidden" name="name" value="<%= r.getName() %>">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <%
+                                }
+                            }
+                        } catch (Exception e) {
+                            out.println("<tr><td colspan='4'>Error loading restaurants: " + e.getMessage() + "</td></tr>");
+                        }
+                    %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Order Management Tab -->
+            <div id="orders" class="tab-content">
+                <h2>Order Management</h2>
+                <table id="orderTable" class="order-table">
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Total Price (LKR)</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Items</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        String orderFilePath = application.getRealPath("/") + "WEB-INF/orders/order_history.txt";
+                        File orderFile = new File(orderFilePath);
+
+                        if (orderFile.exists()) {
+                            if (orderFile.canRead()) {
+                                try (BufferedReader br = new BufferedReader(new FileReader(orderFile))) {
+                                    String line;
+                                    boolean hasData = false;
+
+                                    while ((line = br.readLine()) != null) {
+                                        hasData = true;
+                                        String[] orderDetails = line.split(",", -1);
+                                        if (orderDetails.length >= 8) {
+                                            String items = orderDetails[7];
+                                            String formattedItems = "";
+                                            if (!items.isEmpty()) {
+                                                String[] itemList = items.split(";");
+                                                for (String item : itemList) {
+                                                    String[] itemDetails = item.split("\\|", -1);
+                                                    if (itemDetails.length >= 4) {
+                                                        formattedItems += itemDetails[0] + " (" + itemDetails[1] + ", Qty: " + itemDetails[2] + ", Price: " + itemDetails[3] + ")<br>";
+                                                    }
+                                                }
+                                            } else {
+                                                formattedItems = "No items";
+                                            }
+                    %>
+                    <tr>
+                        <td><%= orderDetails[0] %></td>
+                        <td><%= orderDetails[1] %></td>
+                        <td><%= orderDetails[2] %></td>
+                        <td><%= orderDetails[3] %></td>
+                        <td><%= orderDetails[4] %></td>
+                        <td><%= orderDetails[5] %></td>
+                        <td><%= orderDetails[6] %></td>
+                        <td><%= formattedItems %></td>
+                        <td>
+                            <div class="action-form">
+                                <form method="GET" action="<%= request.getContextPath() %>/ViewOrderServlet">
+                                    <input type="hidden" name="orderId" value="<%= orderDetails[0] %>">
+                                    <button type="submit" class="view-btn">View Details</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <%
+                                        }
+                                    }
+
+                                    if (!hasData) {
+                                        out.println("<tr><td colspan='9'>No orders found in file</td></tr>");
+                                    }
+                                } catch (IOException e) {
+                                    out.println("<tr><td colspan='9'>Error reading orders file: " + e.getMessage() + "</td></tr>");
+                                }
+                            } else {
+                                out.println("<tr><td colspan='9'>No permission to read orders file</td></tr>");
+                            }
+                        } else {
+                            out.println("<tr><td colspan='9'>Order file not found at: " + orderFilePath + "</td></tr>");
+                        }
+                    %>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 </div>
@@ -229,6 +366,18 @@
                 case 'foodUpdated':
                     title.innerText = 'Food Item Updated';
                     body.innerText = 'The food item details have been successfully updated.';
+                    break;
+                case 'restaurantCreated':
+                    title.innerText = 'Restaurant Created';
+                    body.innerText = 'The restaurant has been successfully added.';
+                    break;
+                case 'restaurantDeleted':
+                    title.innerText = 'Restaurant Deleted';
+                    body.innerText = 'The restaurant has been successfully removed.';
+                    break;
+                case 'restaurantUpdated':
+                    title.innerText = 'Restaurant Updated';
+                    body.innerText = 'The restaurant details have been successfully updated.';
                     break;
                 default:
                     title.innerText = 'Success';
@@ -274,21 +423,21 @@
         filterTable();
     }
 
-    // Enhanced filter function for both tables
+    // Enhanced filter function for all tables
     function filterTable() {
         const input = document.getElementById('searchInput').value.toLowerCase();
         const activeTab = document.querySelector('.tab-content.active').id;
-        const tableId = activeTab === 'users' ? 'userTable' : 'foodTable';
+        const tableId = activeTab === 'users' ? 'userTable' : activeTab === 'food' ? 'foodTable' : activeTab === 'restaurants' ? 'restaurantTable' : 'orderTable';
         const rows = document.querySelectorAll(`#${tableId} tbody tr`);
 
         rows.forEach(row => {
             let shouldShow = false;
             const cells = row.querySelectorAll('td');
 
-            // Skip image cells and action cells
+            // Skip action cells and image cells
             for (let i = 0; i < cells.length - 1; i++) {
                 if (cells[i].querySelector('img') === null) { // Skip image cells
-                    if (cells[i].innerText.toLowerCase().includes(input)) {
+                    if (cells[i].innerHTML.toLowerCase().includes(input)) {
                         shouldShow = true;
                         break;
                     }

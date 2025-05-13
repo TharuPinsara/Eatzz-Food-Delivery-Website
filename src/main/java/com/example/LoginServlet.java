@@ -27,12 +27,22 @@ public class LoginServlet extends HttpServlet {
         System.out.println("Password entered: " + password);
 
         // Validate username and password by reading the file
-        if (isValidUser(username, password)) {
+        String[] userDetails = isValidUser(username, password);
+        if (userDetails != null) {
             // Create session for user
             HttpSession session = request.getSession();
-            session.setAttribute("username", username);
+            session.setAttribute("username", userDetails[0]); // Username
+            session.setAttribute("email", userDetails[2]);    // Email
+            session.setAttribute("phone", userDetails[3]);    // Phone
+            session.setAttribute("address", userDetails[4]);  // Address
 
-            // Redirect to cart.jsp or homepage after login
+            // Debug: Log session attributes
+            System.out.println("Session created for user: " + userDetails[0] +
+                    ", email: " + userDetails[2] +
+                    ", phone: " + userDetails[3] +
+                    ", address: " + userDetails[4]);
+
+            // Redirect to homepage after login
             response.sendRedirect("/HomePage/");
         } else {
             // Debug: Invalid login
@@ -42,20 +52,32 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    // Validate user credentials from the file
-    private boolean isValidUser(String username, String password) throws IOException {
+    // Validate user credentials from the file and return user details
+    private String[] isValidUser(String username, String password) throws IOException {
         // Dynamically resolve the file path
         String absolutePath = getServletContext().getRealPath(USER_FILE);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(absolutePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] userDetails = line.split(",");
-                if (userDetails[0].trim().equals(username) && userDetails[1].trim().equals(password)) {
-                    return true; // Credentials match
+                // Skip empty or invalid lines
+                if (line.trim().isEmpty() || !line.contains(",")) {
+                    System.out.println("Skipping invalid line: " + line);
+                    continue;
+                }
+
+                String[] userDetails = line.split(",", -1); // -1 to include empty fields
+                // Ensure the line has exactly 5 fields (username,password,email,phone,address)
+                if (userDetails.length == 5 &&
+                        userDetails[0].trim().equals(username) &&
+                        userDetails[1].trim().equals(password)) {
+                    return userDetails; // Return username,password,email,phone,address
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error reading users.txt: " + e.getMessage());
+            throw e;
         }
-        return false;
+        return null;
     }
 }
