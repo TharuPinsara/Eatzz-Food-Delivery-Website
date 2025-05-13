@@ -39,7 +39,7 @@ body {
 }
 
 .popup-container.success {
-    border-left: 6px solid #4CAF50;
+    border-left: 6px solid #da0000;
 }
 
 .popup-container.error {
@@ -144,12 +144,12 @@ body {
 }
 
 .action-form button.edit-btn {
-    background-color: #4caf50;
+    background-color: #da0000;
     color: white;
 }
 
 .action-form button.edit-btn:hover {
-    background-color: #43a047;
+    background-color: #da0000;
 }
 
 .action-form button.delete-btn {

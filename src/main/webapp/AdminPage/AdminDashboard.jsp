@@ -30,7 +30,7 @@
                 </div>
                 <div class="profile-dropdown">
                     <div class="profile-toggle">
-                        <span><b><%= session.getAttribute("adminUser") != null ? session.getAttribute("adminUser") : "Admin" %></b></span>
+                        <span><b><%= session.getAttribute("adminUser") %></b></span>
                         <span>▼</span>
                     </div>
                     <div class="dropdown-menu">
@@ -303,6 +303,10 @@
                                     <input type="hidden" name="orderId" value="<%= orderDetails[0] %>">
                                     <button type="submit" class="view-btn">View Details</button>
                                 </form>
+                                <form method="POST" action="<%= request.getContextPath() %>/DeleteOrderServlet">
+                                    <input type="hidden" name="orderId" value="<%= orderDetails[0] %>">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -378,6 +382,14 @@
                 case 'restaurantUpdated':
                     title.innerText = 'Restaurant Updated';
                     body.innerText = 'The restaurant details have been successfully updated.';
+                    break;
+                case 'orderUpdated':
+                    title.innerText = 'Order Updated';
+                    body.innerText = 'The order details have been successfully updated.';
+                    break;
+                case 'orderDeleted':
+                    title.innerText = 'Order Deleted';
+                    body.innerText = 'The order has been successfully deleted.';
                     break;
                 default:
                     title.innerText = 'Success';
