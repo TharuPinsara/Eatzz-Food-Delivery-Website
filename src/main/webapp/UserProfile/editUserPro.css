@@ -1,157 +1,316 @@
-    /* Base styling */
 body {
     font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f3f4f6; /* Softer background for better focus */
+    background-color: #f3f4f6;
+    color: #333;
 }
 
-/* Profile container styling */
 .profile-container {
     max-width: 1200px;
-    margin: 60px auto;
-    display: flex; /* Flex layout for side-by-side containers */
-    gap: 20px; /* Adds spacing between the two sections */
-    justify-content: space-between;
+    margin: 80px auto;
     padding: 30px;
-    background: #fff; /* Crisp white background */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background: linear-gradient(145deg, #ffffff, #f9f9f9);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
 }
 
-/* Left Section: Form Styling */
+.profile-container:hover {
+    transform: translateY(-5px);
+}
+
 .profile-info-container {
-    flex: 2; /* Takes up more width */
+    flex: 2;
     padding: 20px;
-    border-right: 1px solid #eee; /* Separator for form and profile card */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .profile-info-container h2 {
     font-size: 28px;
     margin-bottom: 20px;
-    color: #333;
-    font-weight: bold;
-    letter-spacing: 1px;
+    color: #222;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #da0000;
     display: inline-block;
-    padding-bottom: 5px; /* Underline with padding */
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-/* Form Styling */
 .form-group {
-    margin-bottom: 20px; /* Spacing between form elements */
+    margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 16px;
     color: #333;
-    margin-bottom: 8px; /* Spacing between label and input */
+    margin-bottom: 8px;
     font-weight: 500;
+}
+
+.form-group label i {
+    color: #da0000;
+    font-size: 18px;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 10px 15px;
-    font-size: 16px;
+    font-size: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background: #f9fafb; /* Light input background */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-    transition: border-color 0.2s ease-in-out; /* Smooth focus change */
+    background: #f9fafb;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #da0000; /* Highlight border on focus */
-    outline: none; /* Remove default blue outline */
+    border-color: #da0000;
+    box-shadow: 0 0 8px rgba(218, 0, 0, 0.2);
+    outline: none;
 }
 
-textarea {
-    resize: none; /* Disable resizing for textareas */
+.form-group textarea {
+    resize: none;
 }
 
-.btn-submit {
-    display: inline-block;
+.form-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn-submit,
+.btn-cancel,
+.btn-delete {
     padding: 12px 25px;
     font-size: 16px;
-    font-weight: bold;
-    color: #fff; /* White text color */
-    background-color: #da0000; /* Primary button color */
+    font-family: 'Poppins', sans-serif;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Light shadow */
-    transition: 0.3s all ease-in-out; /* Smooth hover transition */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-submit {
+    background: linear-gradient(90deg, #da0000, #b71c1c);
+    color: white;
 }
 
 .btn-submit:hover {
-    background-color: #da0000; /* Slightly lighter color on hover */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Darker hover shadow */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 0, 0, 0.3);
 }
 
-/* Profile Card (Right section) */
+.btn-cancel {
+    background: linear-gradient(90deg, #6c757d, #5a6268);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+}
+
+.btn-delete {
+    background: linear-gradient(90deg, #dc3545, #c82333);
+    color: white;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
 .profile-card {
-    flex: 1; /* Takes up smaller width */
-    background: #ffffff;
-    border: 2px solid #e3f2fd; /* Subtle blue border */
-    border-radius: 20px; /* Rounded corners */
-    padding: 20px; /* Reduced padding to decrease height */
-    max-height: 350px; /* Constrain maximum height */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-    text-align: center; /* Center text and content */
+    flex: 1;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease-in-out; /* Smooth hover animation */
-}
-
-.profile-card:hover {
-    transform: translateY(-5px); /* Lift the card slightly on hover */
 }
 
 .profile-card img {
     width: 120px;
     height: 120px;
-    border-radius: 50%; /* Circular image */
-    border: 3px solid #e0e0e0; /* Subtle border around the image */
+    border-radius: 50%;
+    border: 3px solid #da0000;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    margin-bottom: 15px; /* Reduced margin to compact layout */
-    object-fit: cover; /* Ensure the image is centered and covers */
+    margin-bottom: 15px;
+    object-fit: cover;
 }
 
 .profile-card h3 {
-    font-size: 20px;
-    color: #333;
+    font-size: 22px;
+    color: #222;
     margin: 10px 0;
 }
 
-.profile-card p.title {
+.profile-card p {
     font-size: 16px;
-    color: #666;
-    margin: 5px 0 15px 0;
+    color: #333;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-/* Responsive Adjustments */
+.profile-card p i {
+    color: #da0000;
+    font-size: 18px;
+}
+
+.popup-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+    max-width: 350px;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-container.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.popup-container.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}
+
+.popup-container i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.popup-container h4 {
+    font-size: 16px;
+    margin: 0;
+    display: inline;
+}
+
+.popup-container .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: inherit;
+    opacity: 0.7;
+}
+
+.popup-container .close-btn:hover {
+    opacity: 1;
+}
+
+p.error {
+    color: #dc3545;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+p.error i {
+    color: #dc3545;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .profile-container {
-        flex-wrap: wrap; /* Stack sections vertically */
+        flex-direction: column;
+        margin: 20px;
         padding: 20px;
     }
 
     .profile-info-container,
     .profile-card {
-        flex: 1 1 100%; /* Let both sections take full width */
+        flex: 1 1 100%;
         margin-bottom: 20px;
     }
 
     .profile-card img {
         width: 100px;
         height: 100px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-submit,
+    .btn-cancel,
+    .btn-delete {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .popup-container {
+        max-width: 90%;
+        right: 10px;
+        top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-info-container h2 {
+        font-size: 24px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .profile-card h3 {
+        font-size: 18px;
+    }
+
+    .profile-card p {
+        font-size: 14px;
     }
 }

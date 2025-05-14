@@ -1,4 +1,4 @@
-package com.example;
+package com.example.checkout;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
