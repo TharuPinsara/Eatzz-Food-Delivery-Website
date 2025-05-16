@@ -26,6 +26,14 @@
             <label for="storeName">Store Name:</label>
             <input type="text" id="storeName" name="storeName" required>
         </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+        </div>
         <button type="submit" class="submit-btn">Register</button>
     </form>
     <a href="/RestaurantPage/Admin/StoreAdminLogin.jsp" class="auth-link">Login</a>
