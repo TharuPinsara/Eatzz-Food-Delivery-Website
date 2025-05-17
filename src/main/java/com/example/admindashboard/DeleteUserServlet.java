@@ -1,6 +1,6 @@
 //Admin Page Delete User
 
-package com.example.userlogin;
+package com.example.admindashboard;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
