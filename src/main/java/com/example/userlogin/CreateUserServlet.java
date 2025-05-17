@@ -1,5 +1,3 @@
-//Admin Page Create User
-
 package com.example.userlogin;
 
 import jakarta.servlet.ServletException;
@@ -9,13 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.*;
-import java.util.regex.Pattern;
 
 @WebServlet("/CreateUserServlet")
 public class CreateUserServlet extends HttpServlet {
 
-    private static final Pattern EMAIL_REGEX = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-    private static final Pattern PHONE_REGEX = Pattern.compile("^[0-9]{10}$");
     private static final String USER_FILE = "WEB-INF/users.txt";
 
     @Override
@@ -26,8 +21,16 @@ public class CreateUserServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
-        // Validate email and phone
-        if (!isValidEmail(email) || !isValidPhone(phone)) {
+        // Create User object and validate
+        User user;
+        try {
+            user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setAddress(address);
+        } catch (IllegalArgumentException e) {
             response.sendRedirect(request.getContextPath() + "/AdminPage/AddUser.jsp?error=Invalid input. Please try again.");
             return;
         }
@@ -42,7 +45,7 @@ public class CreateUserServlet extends HttpServlet {
 
         // Append new user to file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(username + "," + password + "," + email + "," + phone + "," + address);
+            writer.write(user.toString());
             writer.newLine();
         }
 
@@ -50,21 +53,18 @@ public class CreateUserServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/AdminPage/AddUser.jsp?success=User added successfully!");
     }
 
-    private boolean isValidEmail(String email) {
-        return EMAIL_REGEX.matcher(email).matches();
-    }
-
-    private boolean isValidPhone(String phone) {
-        return PHONE_REGEX.matcher(phone).matches();
-    }
-
     private boolean isUserExists(String username, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] details = line.split(",");
-                if (details[0].equalsIgnoreCase(username)) {
-                    return true; // User already exists
+                try {
+                    User existingUser = User.fromString(line);
+                    if (existingUser.getUsername().equalsIgnoreCase(username)) {
+                        return true; // User already exists
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Skip invalid lines
+                    continue;
                 }
             }
         }
