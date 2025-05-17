@@ -1,0 +1,12 @@
+Servlet Execution Timestamp: 2025-05-18 01:16:08
+Metrics:
+Total Orders: 11
+Total Revenue: 5045.00
+Total Paid Orders: 3
+Total Non-Paid Orders: 8
+Total Users: 3
+Total Food Items: 20
+Total Restaurants: 10
+Total Admin Users: 0
+Total Deliveries: 5
+Errors: None
