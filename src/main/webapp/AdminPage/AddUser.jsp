@@ -91,13 +91,11 @@
     <!-- Main Content -->
     <main class="main-content">
         <section class="main-section">
-            <!-- Add User Header -->
-
             <!-- Add User Form -->
             <div class="form-container">
                 <h2>Add New User Details</h2>
 
-                <form method="POST" action="<%= request.getContextPath() %>/CreateUserServlet">
+                <form method="POST" action="<%= request.getContextPath() %>/CreateUserServlet" onsubmit="encodeFormData(this)">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" placeholder="Enter username" required>
 
@@ -143,12 +141,12 @@
 
         if (successMessage) {
             title.innerText = 'Success';
-            body.innerText = decodeURIComponent(successMessage); // Decode URL-encoded message
+            body.innerText = decodeURIComponent(successMessage);
             popup.classList.add('success');
             popup.style.display = 'block';
         } else if (errorMessage) {
             title.innerText = 'Error';
-            body.innerText = decodeURIComponent(errorMessage); // Decode URL-encoded message
+            body.innerText = decodeURIComponent(errorMessage);
             popup.classList.add('error');
             popup.style.display = 'block';
         }
@@ -158,6 +156,20 @@
     function closePopup() {
         const popup = document.getElementById('popupMessage');
         popup.style.display = 'none';
+    }
+
+    // Function to encode password and email before form submission
+    function encodeFormData(form) {
+        const passwordInput = form.querySelector('#password');
+        const emailInput = form.querySelector('#email');
+        if (passwordInput && emailInput) {
+            try {
+                passwordInput.value = btoa(passwordInput.value);
+                emailInput.value = btoa(emailInput.value);
+            } catch (e) {
+                console.error('Error encoding form data: ', e);
+            }
+        }
     }
 </script>
 </body>
