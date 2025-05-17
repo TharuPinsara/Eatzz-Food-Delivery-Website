@@ -53,7 +53,6 @@ The **Eatzz Food Delivery** website is a platform designed to facilitate online 
 - **Database:** Text File
 - **Server:** Apache Tomcat 9.0 or higher
 ## Screenshots
-
 ![Screenshot 1](https://github.com/TharuPinsara/Eatzz-Food-Delivery-Website/raw/master/Files/Ss1%20(1).png)
 
 ![Screenshot 2](https://github.com/TharuPinsara/Eatzz-Food-Delivery-Website/raw/master/Files/Ss1%20(2).png)
