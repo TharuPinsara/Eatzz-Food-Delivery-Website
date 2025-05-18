@@ -43,4 +43,4 @@ The Eatzz Food Delivery website is a platform designed to facilitate online food
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/eatzz-food-delivery.git
+   git clone https://github.com/TharuPinsara/eatzz-food-delivery.git
