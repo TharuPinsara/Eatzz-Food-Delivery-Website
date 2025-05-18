@@ -9,6 +9,8 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Base64;
+import com.example.userlogin.User;
 
 @WebServlet("/EditUserOrder")
 public class EditUserOrder extends HttpServlet {
@@ -49,13 +51,14 @@ public class EditUserOrder extends HttpServlet {
         // Log input parameters
         System.out.println("Processing EditUserOrder: orderId=" + orderId + ", newAddress=" + newAddress + ", newPhone=" + newPhone);
 
-        // Path to order_history.
+        // Path to order_history.txt
         String orderFilePath = getServletContext().getRealPath("/") + "WEB-INF/orders/order_history.txt";
         File orderFile = new File(orderFilePath);
         List<String> updatedOrders = new ArrayList<>();
         boolean orderFound = false;
         boolean isAuthorized = false;
         boolean isNotDelivered = false;
+        String currentEmail = "";
 
         // Update address in order_history.txt (keep 8 fields)
         if (orderFile.exists() && orderFile.canRead()) {
@@ -70,6 +73,13 @@ public class EditUserOrder extends HttpServlet {
                             isAuthorized = true;
                             if (!orderDetails[6].equals("Delivered")) {
                                 isNotDelivered = true;
+                                // Decode email to preserve it
+                                currentEmail = orderDetails[2];
+                                try {
+                                    currentEmail = new String(Base64.getDecoder().decode(orderDetails[2]));
+                                } catch (IllegalArgumentException e) {
+                                    // Email is not Base64-encoded, use as is
+                                }
                                 // Update address only (keep 8 fields)
                                 String updatedLine = orderDetails[0] + "," + orderDetails[1] + "," + orderDetails[2] + "," +
                                         newAddress + "," + orderDetails[4] + "," + orderDetails[5] + "," +
@@ -141,19 +151,24 @@ public class EditUserOrder extends HttpServlet {
                 String line;
                 while ((line = br.readLine()) != null) {
                     System.out.println("Checking user line: " + line);
-                    String[] userDetails = line.split(",", -1);
-                    if (userDetails.length >= 4 && userDetails[0].equalsIgnoreCase(loggedUser)) {
-                        userFound = true;
-                        // Update phone (index 3), preserve other fields
-                        String updatedLine = userDetails[0] + "," + userDetails[1] + "," + userDetails[2] + "," + newPhone;
-                        if (userDetails.length > 4) {
-                            updatedLine += "," + userDetails[4]; // Preserve address if present
+                    try {
+                        User user = User.fromString(line);
+                        if (user.getUsername().equalsIgnoreCase(loggedUser)) {
+                            userFound = true;
+                            // Encode password and email
+                            String encodedPassword = Base64.getEncoder().encodeToString(user.getPassword().getBytes());
+                            String encodedEmail = Base64.getEncoder().encodeToString(user.getEmail().getBytes());
+                            // Update phone (index 3), preserve other fields
+                            String updatedLine = user.getUsername() + "," + encodedPassword + "," + encodedEmail + "," + newPhone + "," + user.getAddress();
+                            updatedUsers.add(updatedLine);
+                            System.out.println("Updated user line: " + updatedLine);
+                            continue;
                         }
-                        updatedUsers.add(updatedLine);
-                        System.out.println("Updated user line: " + updatedLine);
-                        continue;
+                        updatedUsers.add(line);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Skipping invalid user line: " + line);
+                        updatedUsers.add(line);
                     }
-                    updatedUsers.add(line);
                 }
             } catch (IOException e) {
                 System.out.println("Error reading users: " + e.getMessage());

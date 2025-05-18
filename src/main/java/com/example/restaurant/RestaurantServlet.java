@@ -32,9 +32,8 @@ public class RestaurantServlet extends HttpServlet {
         // Validate restaurant inputs
         if (name == null || name.trim().isEmpty() ||
                 address == null || address.trim().isEmpty() ||
-                phoneNumber == null || phoneNumber.trim().isEmpty() ||
-                !phoneNumber.trim().matches("\\d{10}")) { // Added phone number format validation
-            response.sendRedirect(request.getContextPath() + "/RestaurantPage/AddRestaurant.jsp?error=invalidInput");
+                phoneNumber == null || phoneNumber.trim().isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/RestaurantPage/AddRestaurant.jsp?error=missingFields");
             return;
         }
 

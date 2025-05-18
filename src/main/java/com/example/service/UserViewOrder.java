@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Base64;
+import com.example.userlogin.User;
 
 @WebServlet("/UserViewOrder")
 public class UserViewOrder extends HttpServlet {
@@ -45,10 +47,17 @@ public class UserViewOrder extends HttpServlet {
                             response.sendRedirect(request.getContextPath() + "/UserProfile/ViewUserOrders.jsp?error=Unauthorized access");
                             return;
                         }
+                        // Decode email (index 2)
+                        String email = orderDetails[2];
+                        try {
+                            email = new String(Base64.getDecoder().decode(orderDetails[2]));
+                        } catch (IllegalArgumentException e) {
+                            // Email is not Base64-encoded, use as is
+                        }
                         // Set order attributes
                         request.setAttribute("orderId", orderDetails[0]);
                         request.setAttribute("username", orderDetails[1]);
-                        request.setAttribute("email", orderDetails[2]);
+                        request.setAttribute("email", email); // Decoded email
                         request.setAttribute("address", orderDetails[3]);
                         request.setAttribute("totalPrice", orderDetails[4]);
                         request.setAttribute("date", orderDetails[5]);
@@ -76,13 +85,16 @@ public class UserViewOrder extends HttpServlet {
                 try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
                     String line;
                     while ((line = br.readLine()) != null) {
-                        String[] userDetails = line.split(",", -1);
-                        if (userDetails.length >= 4 && userDetails[0].equals(loggedUser)) {
-                            phone = userDetails[3]; // Phone is the 4th field (index 3)
-                            System.out.println("Found phone for user " + loggedUser + ": " + phone);
-                            break;
-                        } else {
+                        try {
+                            User user = User.fromString(line);
+                            if (user.getUsername().equals(loggedUser)) {
+                                phone = user.getPhone();
+                                System.out.println("Found phone for user " + loggedUser + ": " + phone);
+                                break;
+                            }
+                        } catch (IllegalArgumentException e) {
                             System.out.println("Skipping malformed user line for " + loggedUser + ": " + line);
+                            continue;
                         }
                     }
                 } catch (IOException e) {

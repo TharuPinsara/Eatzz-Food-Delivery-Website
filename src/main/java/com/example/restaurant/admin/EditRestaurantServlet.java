@@ -16,7 +16,7 @@ public class EditRestaurantServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         if (name == null || name.trim().isEmpty()) {
-            response.sendRedirect("/AdminPage/AdminDashboard.jsp?error=invalid");
+            response.sendRedirect("/AdminPage/AdminDashboard.jsp?tab=restaurants&error=invalid");
             return;
         }
 
@@ -29,9 +29,9 @@ public class EditRestaurantServlet extends HttpServlet {
                     return;
                 }
             }
-            response.sendRedirect("/AdminPage/AdminDashboard.jsp?error=notFound");
+            response.sendRedirect("/AdminPage/AdminDashboard.jsp?tab=restaurants&error=notFound");
         } catch (Exception e) {
-            response.sendRedirect("/AdminPage/AdminDashboard.jsp?error=loadFailed");
+            response.sendRedirect("/AdminPage/AdminDashboard.jsp?tab=restaurants&error=loadFailed");
         }
     }
 
@@ -53,14 +53,14 @@ public class EditRestaurantServlet extends HttpServlet {
         try {
             restaurants = RestaurantUtil.loadRestaurants(getServletContext());
         } catch (IOException e) {
-            response.sendRedirect("/AdminPage/EditRestaurant.jsp?name=" +
+            response.sendRedirect("/AdminPage/EditRestaurant.jsp?tab=restaurants&name=" +
                     java.net.URLEncoder.encode(originalName, "UTF-8") + "&error=loadFailed");
             return;
         }
 
         for (Restaurant r : restaurants) {
             if (r.getName().equalsIgnoreCase(name.trim()) && !r.getName().equals(originalName)) {
-                response.sendRedirect("/AdminPage/EditRestaurant.jsp?name=" +
+                response.sendRedirect("/AdminPage/EditRestaurant.jsp?tab=restaurants&name=" +
                         java.net.URLEncoder.encode(originalName, "UTF-8") + "&error=duplicate");
                 return;
             }
@@ -76,16 +76,16 @@ public class EditRestaurantServlet extends HttpServlet {
         }
 
         if (!updated) {
-            response.sendRedirect("/AdminPage/EditRestaurant.jsp?name=" +
+            response.sendRedirect("/AdminPage/EditRestaurant.jsp?tab=restaurants&name=" +
                     java.net.URLEncoder.encode(originalName, "UTF-8") + "&error=failed");
             return;
         }
 
         try {
             RestaurantUtil.saveRestaurants(getServletContext(), restaurants);
-            response.sendRedirect("/AdminPage/AdminDashboard.jsp?success=restaurantUpdated");
+            response.sendRedirect("/AdminPage/AdminDashboard.jsp?tab=restaurants&success=restaurantUpdated");
         } catch (IOException e) {
-            response.sendRedirect("/AdminPage/EditRestaurant.jsp?name=" +
+            response.sendRedirect("/AdminPage/EditRestaurant.jsp?tab=restaurants&name=" +
                     java.net.URLEncoder.encode(originalName, "UTF-8") + "&error=saveFailed");
         }
     }

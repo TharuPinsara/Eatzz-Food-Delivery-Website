@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Base64;
 
 @WebServlet("/ViewOrderServlet")
 public class ViewOrderServlet extends HttpServlet {
@@ -32,6 +33,12 @@ public class ViewOrderServlet extends HttpServlet {
                     String[] details = line.split(",", -1);
                     if (details.length >= 8 && details[0].equals(orderId)) {
                         orderDetails = details;
+                        // Decode email (index 2)
+                        try {
+                            orderDetails[2] = new String(Base64.getDecoder().decode(details[2]));
+                        } catch (IllegalArgumentException e) {
+                            // Email is not Base64-encoded, use as is
+                        }
                         break;
                     }
                 }
@@ -41,7 +48,7 @@ public class ViewOrderServlet extends HttpServlet {
         if (orderDetails != null) {
             request.setAttribute("orderId", orderDetails[0]);
             request.setAttribute("username", orderDetails[1]);
-            request.setAttribute("email", orderDetails[2]);
+            request.setAttribute("email", orderDetails[2]); // Decoded email
             request.setAttribute("address", orderDetails[3]);
             request.setAttribute("totalPrice", orderDetails[4]);
             request.setAttribute("date", orderDetails[5]);
