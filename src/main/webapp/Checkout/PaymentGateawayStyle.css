@@ -1,0 +1,167 @@
+/* PaymentGatewayStyles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.payment-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.order-details {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f1f3f5;
+    border-radius: 6px;
+}
+
+.order-details h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.order-details p {
+    font-size: 1rem;
+    margin: 8px 0;
+}
+
+.order-details p strong {
+    font-weight: 600;
+}
+
+.payment-form h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #da0000;
+}
+
+.pay-now-btn {
+    display: block;
+    width: 100%;
+    background-color: #da0000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pay-now-btn:hover {
+    background-color: #da0000;
+}
+
+.success-message {
+    text-align: center;
+}
+
+.success-message h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.success-message p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.back-to-shopping-btn {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-to-shopping-btn:hover {
+    background-color: #27ae60;
+}
+
+.error-message {
+    color: #c0392b;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .payment-container {
+        padding: 20px;
+    }
+
+    .order-details h2,
+    .payment-form h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-message h3 {
+        font-size: 1.5rem;
+    }
+
+    .pay-now-btn,
+    .back-to-shopping-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

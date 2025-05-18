@@ -1,5 +1,5 @@
 // Admin Page Edit User
-package com.example.userlogin;
+package com.example.admindashboard;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Base64;
+import com.example.userlogin.User;
 
 @WebServlet("/EditUserServlet")
 public class EditUserServlet extends HttpServlet {
@@ -28,28 +28,32 @@ public class EditUserServlet extends HttpServlet {
         }
 
         String filePath = getServletContext().getRealPath(USER_FILE);
-        Map<String, String[]> userData = new HashMap<>();
+        User targetUser = null;
 
         // Read user data from the file
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] details = line.split(",");
-                // Ensure the file contains enough data, including the address field
-                if (details.length >= 5) {
-                    userData.put(details[0], new String[] { details[1], details[2], details[3], details[4] });
+                try {
+                    User user = User.fromString(line);
+                    if (user.getUsername().equals(username)) {
+                        targetUser = user;
+                        break;
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Skip invalid lines
+                    continue;
                 }
             }
         }
 
         // Check if the user exists in the file
-        if (userData.containsKey(username)) {
-            String[] details = userData.get(username); // Retrieve the user's data from the map
-            request.setAttribute("username", username);
-            request.setAttribute("password", details[0]);
-            request.setAttribute("email", details[1]);
-            request.setAttribute("phone", details[2]);
-            request.setAttribute("address", details[3]); // Pass the address to the JSP
+        if (targetUser != null) {
+            request.setAttribute("username", targetUser.getUsername());
+            request.setAttribute("password", targetUser.getPassword()); // Decoded password
+            request.setAttribute("email", targetUser.getEmail()); // Decoded email
+            request.setAttribute("phone", targetUser.getPhone());
+            request.setAttribute("address", targetUser.getAddress());
             request.getRequestDispatcher("/AdminPage/EditUser.jsp").forward(request, response);
         } else {
             // User not found
@@ -65,6 +69,10 @@ public class EditUserServlet extends HttpServlet {
         String newPhone = request.getParameter("phone");
         String newAddress = request.getParameter("address");
 
+        // Encode password and email
+        String encodedPassword = Base64.getEncoder().encodeToString(newPassword.getBytes());
+        String encodedEmail = Base64.getEncoder().encodeToString(newEmail.getBytes());
+
         String filePath = getServletContext().getRealPath(USER_FILE);
         List<String> updatedUsers = new ArrayList<>();
         boolean userUpdated = false;
@@ -73,12 +81,10 @@ public class EditUserServlet extends HttpServlet {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] details = line.split(",");
-
-                // Check if this line corresponds to the user being edited
-                if (details.length >= 4 && details[0].equals(username)) {
-                    // Update user attributes
-                    updatedUsers.add(username + "," + newPassword + "," + newEmail + "," + newPhone + "," + newAddress);
+                String[] details = line.split(",", -1);
+                if (details.length >= 5 && details[0].equals(username)) {
+                    // Update user attributes with encoded password and email
+                    updatedUsers.add(username + "," + encodedPassword + "," + encodedEmail + "," + newPhone + "," + newAddress);
                     userUpdated = true;
                 } else {
                     updatedUsers.add(line);
