@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.*;
 import java.util.regex.Pattern;
-import java.util.Base64;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -44,15 +43,12 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        // Save user data to the file with encoded password and email
+        // Save user data to the file
         saveUserToFile(username, password, email, phone, address);
 
         // Create a session and log the user in automatically
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
-        session.setAttribute("email", email);
-        session.setAttribute("phone", phone);
-        session.setAttribute("address", address);
 
         // Redirect to the cart page (or any other logged-in user page)
         response.sendRedirect("/HomePage/");
@@ -74,8 +70,8 @@ public class RegisterServlet extends HttpServlet {
         try (BufferedReader reader = new BufferedReader(new FileReader(absolutePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] userDetails = line.split(",", -1);
-                if (userDetails.length >= 1 && userDetails[0].trim().equalsIgnoreCase(username)) {
+                String[] userDetails = line.split(",");
+                if (userDetails[0].trim().equalsIgnoreCase(username)) {
                     return true; // Username already exists
                 }
             }
@@ -90,9 +86,7 @@ public class RegisterServlet extends HttpServlet {
         file.getParentFile().mkdirs();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
-            String encodedEmail = Base64.getEncoder().encodeToString(email.getBytes());
-            writer.write(username + "," + encodedPassword + "," + encodedEmail + "," + phone + "," + address);
+            writer.write(username + "," + password + "," + email + "," + phone + "," + address);
             writer.newLine();
         }
     }

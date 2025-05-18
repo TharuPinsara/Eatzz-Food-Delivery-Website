@@ -1,4 +1,4 @@
-<%@ page import="java.io.*, com.example.restaurant.Restaurant, com.example.restaurant.RestaurantUtil, java.util.List, com.example.userlogin.User" %>
+<%@ page import="java.io.*, com.example.restaurant.Restaurant, com.example.restaurant.RestaurantUtil, java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     // Check if "adminUser" attribute exists in the session; if not, redirect to the login page
@@ -85,16 +85,8 @@
 
                                     while ((line = br.readLine()) != null) {
                                         hasData = true;
-                                        try {
-                                            User user = User.fromString(line);
-                                            String[] userDetails = {
-                                                    user.getUsername(),
-                                                    user.getPassword(),
-                                                    user.getEmail(),
-                                                    user.getPhone(),
-                                                    user.getAddress()
-                                            };
-                                            if (userDetails.length >= 5) {
+                                        String[] userDetails = line.split(",");
+                                        if (userDetails.length >= 5) {
                     %>
                     <tr>
                         <td><%= userDetails[0] %></td>
@@ -117,9 +109,6 @@
                         </td>
                     </tr>
                     <%
-                                            }
-                                        } catch (IllegalArgumentException e) {
-                                            out.println("<tr><td colspan='5'>Invalid user data: " + line + "</td></tr>");
                                         }
                                     }
 

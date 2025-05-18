@@ -9,7 +9,7 @@
             <li><a href="<%= request.getContextPath() %>/AdminPage/AddUser.jsp">👤 Add User</a></li>
             <li><a href="<%= request.getContextPath() %>/AdminPage/AddFoodItem.jsp">🍕 Add Food Item</a></li>
             <li><a href="<%= request.getContextPath() %>/AdminPage/AddRestaurant.jsp">🏬 Add Restaurant</a></li>
-            <li><a href="<%= request.getContextPath() %>/AdminPage/ChartAdminDashboard.jsp">📊 Charts</a></li>
+            <li><a href="#">📊 Charts</a></li>
             <li><a href="#">⚙️ Settings</a></li>
         </ul>
     </nav>

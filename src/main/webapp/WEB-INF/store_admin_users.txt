@@ -1,4 +1,0 @@
-manager1,pass123,Hoppers Heaven
-admin,admin,Burgers & More
-admin2,admin,Nandun Stores
-Tharu,Tharu,Taco

@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.userlogin.User;
 
 public class UserService {
 
@@ -34,20 +33,9 @@ public class UserService {
             try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    try {
-                        User user = User.fromString(line);
-                        // Create array with decoded values
-                        String[] userData = {
-                                user.getUsername(),
-                                user.getPassword(), // Decoded password
-                                user.getEmail(),   // Decoded email
-                                user.getPhone(),
-                                user.getAddress()
-                        };
+                    String[] userData = line.split(","); // Split by comma
+                    if (userData.length == 4) { // Only include rows with exactly 4 elements
                         users.add(userData);
-                    } catch (IllegalArgumentException e) {
-                        System.err.println("Skipping invalid user line: " + line);
-                        continue;
                     }
                 }
             } catch (IOException e) {

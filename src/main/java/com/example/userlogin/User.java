@@ -1,7 +1,6 @@
 package com.example.userlogin;
 
 import java.util.regex.Pattern;
-import java.util.Base64;
 
 public class User {
     private String username;
@@ -84,33 +83,18 @@ public class User {
         return PHONE_REGEX.matcher(phone).matches();
     }
 
-    // Encode password and email for storage
+    // Override toString() for easy file storage
     @Override
     public String toString() {
-        String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
-        String encodedEmail = Base64.getEncoder().encodeToString(email.getBytes());
-        return username + "," + encodedPassword + "," + encodedEmail + "," + phone + "," + address;
+        return username + "," + password + "," + email + "," + phone + "," + address;
     }
 
-    // Parse a User object from a string, decoding password and email
+    // Parse a User object from a string (used to read data from a file)
     public static User fromString(String line) {
-        String[] details = line.split(",", -1);
+        String[] details = line.split(",");
         if (details.length != 5) {
             throw new IllegalArgumentException("Invalid user string format");
         }
-        // Attempt to decode password and email, handle plain text as fallback
-        String password = details[1];
-        String email = details[2];
-        try {
-            password = new String(Base64.getDecoder().decode(details[1]));
-        } catch (IllegalArgumentException e) {
-            // Password is not Base64-encoded, use as is
-        }
-        try {
-            email = new String(Base64.getDecoder().decode(details[2]));
-        } catch (IllegalArgumentException e) {
-            // Email is not Base64-encoded, use as is
-        }
-        return new User(details[0], password, email, details[3], details[4]);
+        return new User(details[0], details[1], details[2], details[3], details[4]);
     }
 }

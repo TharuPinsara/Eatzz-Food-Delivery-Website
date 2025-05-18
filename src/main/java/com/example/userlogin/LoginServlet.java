@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Base64;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -33,7 +32,7 @@ public class LoginServlet extends HttpServlet {
             // Create session for user
             HttpSession session = request.getSession();
             session.setAttribute("username", userDetails[0]); // Username
-            session.setAttribute("email", userDetails[2]);    // Email (decoded)
+            session.setAttribute("email", userDetails[2]);    // Email
             session.setAttribute("phone", userDetails[3]);    // Phone
             session.setAttribute("address", userDetails[4]);  // Address
 
@@ -69,23 +68,10 @@ public class LoginServlet extends HttpServlet {
 
                 String[] userDetails = line.split(",", -1); // -1 to include empty fields
                 // Ensure the line has exactly 5 fields (username,password,email,phone,address)
-                if (userDetails.length == 5 && userDetails[0].trim().equals(username)) {
-                    // Attempt to decode stored password
-                    String storedPassword = userDetails[1];
-                    try {
-                        storedPassword = new String(Base64.getDecoder().decode(userDetails[1]));
-                    } catch (IllegalArgumentException e) {
-                        // Password is not Base64-encoded, use as is
-                    }
-                    if (storedPassword.equals(password)) {
-                        // Decode email for session
-                        try {
-                            userDetails[2] = new String(Base64.getDecoder().decode(userDetails[2]));
-                        } catch (IllegalArgumentException e) {
-                            // Email is not Base64-encoded, use as is
-                        }
-                        return userDetails; // Return username,password,email,phone,address
-                    }
+                if (userDetails.length == 5 &&
+                        userDetails[0].trim().equals(username) &&
+                        userDetails[1].trim().equals(password)) {
+                    return userDetails; // Return username,password,email,phone,address
                 }
             }
         } catch (IOException e) {

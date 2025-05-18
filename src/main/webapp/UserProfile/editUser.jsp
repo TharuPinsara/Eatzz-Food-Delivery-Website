@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.io.*,java.util.*,com.example.userlogin.User" %>
+<%@ page import="java.io.*,java.util.*" %>
 <%@ include file="/Header/HeaderBar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,6 @@
 
       String filePath = getServletContext().getRealPath("/WEB-INF/users.txt");
       String username = "";
-      String password = "";
       String email = "";
       String phone = "";
       String address = "";
@@ -39,26 +38,20 @@
       try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
         String line;
         while ((line = reader.readLine()) != null) {
-          try {
-            User user = User.fromString(line);
-            if (user.getUsername().equals(loggedUser)) {
-              username = user.getUsername();
-              password = user.getPassword(); // Decoded password
-              email = user.getEmail(); // Decoded email
-              phone = user.getPhone();
-              address = user.getAddress();
-              break;
-            }
-          } catch (IllegalArgumentException e) {
-            // Skip invalid lines
-            continue;
+          String[] userDetails = line.split(",");
+          if (userDetails[0].equals(loggedUser)) {
+            username = userDetails[0].trim();
+            email = userDetails[2].trim();
+            phone = userDetails[3].trim();
+            address = userDetails[4].trim();
+            break;
           }
         }
       } catch (IOException e) {
-        response.getWriter().println("<p class='error'><i class='fa fa-exclamation-circle'></i> Error reading users.txt: " + e.getMessage() + "</p>");
+        out.println("<p class='error'><i class='fa fa-exclamation-circle'></i> Error reading users.txt: " + e.getMessage() + "</p>");
       }
     %>
-    <form id="editProfileForm" action="<%= request.getContextPath() %>/EditProfileServlet" method="post">
+    <form action="<%= request.getContextPath() %>/EditProfileServlet" method="post">
       <input type="hidden" name="originalUsername" value="<%= username %>">
       <div class="form-group">
         <label for="username"><i class="fa fa-user"></i> Username:</label>
@@ -66,7 +59,7 @@
       </div>
       <div class="form-group">
         <label for="password"><i class="fa fa-lock"></i> Password:</label>
-        <input type="text" id="password" name="password" value="<%= password %>" placeholder="Enter new password (optional)">
+        <input type="password" id="password" name="password" placeholder="Enter new password (optional)">
       </div>
       <div class="form-group">
         <label for="email"><i class="fa fa-envelope"></i> Email:</label>
@@ -83,12 +76,11 @@
       <div class="form-buttons">
         <button type="submit" class="btn-submit"><i class="fa fa-save"></i> Save Changes</button>
         <a href="<%= request.getContextPath() %>/UserProfile/profile.jsp" class="btn-cancel"><i class="fa fa-times"></i> Cancel</a>
+        <form action="<%= request.getContextPath() %>/DeleteProfileServlet" method="post" style="display: inline;">
+          <input type="hidden" name="username" value="<%= username %>">
+          <button type="submit" class="btn-delete" onclick="return confirmDelete();"><i class="fa fa-trash"></i> Delete Account</button>
+        </form>
       </div>
-    </form>
-    <!-- Separate Delete Form -->
-    <form id="deleteProfileForm" action="<%= request.getContextPath() %>/DeleteProfileServlet" method="post" onsubmit="submitDeleteForm(event)">
-      <input type="hidden" name="username" value="<%= username %>">
-      <button type="submit" class="btn-delete" onclick="return confirmDelete();"><i class="fa fa-trash"></i> Delete Account</button>
     </form>
   </div>
 
@@ -107,10 +99,6 @@
     const confirmed = confirm('Are you sure you want to delete your account? This action cannot be undone.');
     console.log("User confirmed deletion: " + confirmed);
     return confirmed;
-  }
-
-  function submitDeleteForm(event) {
-    console.log("Submitting deleteProfileForm to DeleteProfileServlet");
   }
 
   function showPopup(type, message) {

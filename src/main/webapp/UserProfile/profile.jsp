@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.io.*,java.util.*,com.example.userlogin.User" %>
+<%@ page import="java.io.*,java.util.*" %>
 <%@ include file="/Header/HeaderBar.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,22 +24,17 @@
 
             String filePath = application.getRealPath("/") + "WEB-INF/users.txt";
             File file = new File(filePath);
-            User user = null;
+            String userDetail = null;
 
             try {
                 if (file.exists()) {
                     BufferedReader reader = new BufferedReader(new FileReader(file));
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        try {
-                            User tempUser = User.fromString(line);
-                            if (tempUser.getUsername().equals(loggedUser)) {
-                                user = tempUser;
-                                break;
-                            }
-                        } catch (IllegalArgumentException e) {
-                            // Skip invalid lines
-                            continue;
+                        String[] userDetails = line.split(",");
+                        if (userDetails[0].equals(loggedUser)) {
+                            userDetail = line;
+                            break;
                         }
                     }
                     reader.close();
@@ -48,11 +43,12 @@
                 out.println("<p class='error'><i class='fa fa-exclamation-circle'></i> Error loading user details: " + e.getMessage() + "</p>");
             }
 
-            if (user != null) {
-                String username = user.getUsername();
-                String email = user.getEmail(); // Decoded email
-                String phone = user.getPhone();
-                String address = user.getAddress();
+            if (userDetail != null) {
+                String[] userInfo = userDetail.split(",");
+                String username = userInfo[0];
+                String email = userInfo[2];
+                String phone = userInfo[3];
+                String address = userInfo[4];
         %>
         <div class="profile-info">
             <p><i class="fa fa-user"></i> <strong>Username:</strong> <%= username %></p>
@@ -65,7 +61,9 @@
         } else {
         %>
         <p class="error"><i class="fa fa-exclamation-circle"></i> User details could not be found!</p>
-        <% } %>
+        <%
+            }
+        %>
     </div>
 
     <!-- Right Section: Profile Card -->
