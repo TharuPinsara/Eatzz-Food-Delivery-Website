@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="/RestaurantPage/Admin/dashboard.css">
 </head>
 <body>
-<jsp:include page="/RestaurantPage/Admin/Sidebar.jsp" />
+<jsp:include page="/RestaurantPage/Admin/StoreAdminSidebar.jsp" />
 <div class="content">
   <h1>Edit Store</h1>
   <% if (request.getParameter("error") != null) { %>

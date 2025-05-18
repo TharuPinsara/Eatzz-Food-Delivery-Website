@@ -89,7 +89,7 @@
                 </table>
 
                 <div class="action-buttons">
-                    <a href="<%= request.getContextPath() %>/AdminPage/AdminDashboard.jsp" class="btn back-btn">Back to Dashboard</a>
+                    <a href="<%= request.getContextPath() %>/AdminPage/AdminDashboard.jsp?tab=orders" class="btn back-btn">Back to Dashboard</a>
                 </div>
             </div>
         </section>
