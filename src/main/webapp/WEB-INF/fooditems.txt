@@ -17,4 +17,4 @@ Gotu Kola Sambol,400.00,Traditional Lankan Cuisine,https://encrypted-tbn0.gstati
 Jaffna Crab Curry,1800.00,Seafood Paradise,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWO3JXRWbueGSlvXkleqQy1EWLVJx-Pbf6RQ&s
 Egg Roti,550.00,Hoppers Heaven,https://www.shutterstock.com/image-photo/omelette-chapati-roll-franky-indian-260nw-2228945967.jpg
 Pittu,600.00,Traditional Lankan Cuisine,https://t4.ftcdn.net/jpg/04/19/63/05/360_F_419630515_FN5OzSxaWfM03KN9jJrpfYcv7teOlr0r.jpg
-Wade,60.00,Hoppers Heaven,https://kandy-taste.shophere.lk/wp-content/uploads/2024/03/sri-6305690_960_720.jpg
+Wade,70.00,Hoppers Heaven,https://kandy-taste.shophere.lk/wp-content/uploads/2024/03/sri-6305690_960_720.jpg
