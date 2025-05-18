@@ -1,0 +1,62 @@
+/* Common HeaderBar Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #b71c1c; /* Dark red background */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for better aesthetics */
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Logo Styles */
+.header .logo a {
+    text-decoration: none;
+}
+
+.header .logo img {
+    height: 50px; /* Adjust this to fit your design */
+    width: auto;
+}
+
+/* Navigation Links */
+.header .nav-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.header .nav-links li {
+    margin: 0 15px; /* Adds spacing between menu items */
+}
+
+.header .nav-links li a {
+    text-decoration: none;
+    color: white; /* White text color for links */
+    font-weight: bold;
+    font-size: 16px; /* Adjust font size for an ideal look */
+    transition: color 0.3s linear; /* Smooth transition on hover */
+}
+
+.header .nav-links li a:hover {
+    color: #ffd54f; /* Highlight yellow color on hover */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .header .nav-links li {
+        margin: 10px 0;
+    }
+}

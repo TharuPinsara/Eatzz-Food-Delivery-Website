@@ -1,0 +1,52 @@
+/* sucess.css */
+
+body {
+    font-family: "Montserrat SemiBold", sans-serif;
+    background: url('../images/bgimage.jpg') no-repeat center center fixed; /* Add background image */
+    background-size: cover; /* Make sure the image covers the entire background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+/* Set default text color to white for contrast against background */
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width:500px;
+    width: 100%;
+}
+
+h2 {
+    color: #2e8b57; /* Sea green color for the header */
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555555; /* Gray color for the paragraph */
+    font-size: 16px;
+}
+.home-button button {
+    background-color: #FF0000; /* Sea green color */
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px; /* Increased padding for a larger button */
+    border-radius: 8px; /* Smoothly rounded corners */
+    cursor: pointer;
+    font-size: 22px; /* Slightly larger font size */
+    font-weight: bold;
+    margin-top: 20px; /* Add spacing above the button */
+}
+
+.home-button button:hover {
+    background-color: #FF0000; /* Darker green for hover effect */
+    transform: scale(1.1); /* Slight scaling on hover */
+    transition: all 0.2s ease-in-out; /* Smooth transition */
+}
+

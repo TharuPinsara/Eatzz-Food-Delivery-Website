@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.io.File,java.io.BufferedReader,java.io.FileReader,java.io.IOException" %>
+<%@ page import="java.io.*,com.example.userlogin.User" %>
 <%@ include file="/Header/HeaderBar.jsp" %>
 <%
     // Check if "username" attribute exists in the session; if not, redirect to the login page
@@ -9,7 +9,30 @@
         return;
     }
 
-    // Fetch delivery details
+// Fetch user details to get decoded email
+    String filePath = application.getRealPath("/") + "WEB-INF/users.txt";
+    String decodedEmail = (String) session.getAttribute("email"); // Try session first
+    if (decodedEmail == null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    User user = User.fromString(line);
+                    if (user.getUsername().equals(loggedUser)) {
+                        decodedEmail = user.getEmail(); // Decoded email
+                        break;
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Skip invalid lines
+                    continue;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading users.txt: " + e.getMessage());
+        }
+    }
+
+// Fetch delivery details
     String orderId = (String) request.getAttribute("orderId");
     String deliveryPartner = "Not Assigned";
     String deliveryStatus = "Processing";
@@ -28,7 +51,6 @@
                     }
                 }
             } catch (IOException e) {
-                // Log error (in production, use a proper logging framework)
                 System.err.println("Error reading delivery_details.txt: " + e.getMessage());
             }
         }
@@ -60,7 +82,7 @@
     <div class="order-info">
         <p><i class="fa fa-hashtag"></i> <strong>Order ID:</strong> <%= request.getAttribute("orderId") %></p>
         <p><i class="fa fa-user"></i> <strong>Username:</strong> <%= request.getAttribute("username") != null ? request.getAttribute("username") : "N/A" %></p>
-        <p><i class="fa fa-envelope"></i> <strong>Email:</strong> <%= request.getAttribute("email") != null ? request.getAttribute("email") : "N/A" %></p>
+        <p><i class="fa fa-envelope"></i> <strong>Email:</strong> <%= decodedEmail != null ? decodedEmail : "N/A" %></p>
         <p><i class="fa fa-map-marker-alt"></i> <strong>Address:</strong> <%= request.getAttribute("address") != null ? request.getAttribute("address") : "N/A" %></p>
         <p><i class="fa fa-phone"></i> <strong>Phone Number:</strong> <%= request.getAttribute("phone") != null && !((String) request.getAttribute("phone")).isEmpty() ? request.getAttribute("phone") : "Not provided" %></p>
         <p><i class="fa fa-money-bill"></i> <strong>Total Price (LKR):</strong> <%= request.getAttribute("totalPrice") != null ? request.getAttribute("totalPrice") : "N/A" %></p>
@@ -102,9 +124,7 @@
         <tr>
             <td colspan="4">No items</td>
         </tr>
-        <%
-            }
-        %>
+        <% } %>
         </tbody>
     </table>
     <div class="action-buttons">
