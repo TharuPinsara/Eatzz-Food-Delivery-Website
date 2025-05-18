@@ -1,0 +1,214 @@
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 30px;
+    background: linear-gradient(145deg, #ffffff, #f9f9f9);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.profile-container:hover {
+    transform: translateY(-5px);
+}
+
+.profile-info-container {
+    flex: 2;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.profile-info-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #222;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #da0000;
+    display: inline-block;
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info p {
+    margin: 12px 0;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-info p i {
+    color: #da0000;
+    font-size: 18px;
+}
+
+.profile-info p.error {
+    color: #dc3545;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-info p.error i {
+    color: #dc3545;
+}
+
+.profile-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #da0000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.profile-card h3 {
+    font-size: 22px;
+    color: #222;
+    margin: 10px 0;
+}
+
+.profile-card p.title {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0 15px;
+}
+
+.star-rating {
+    margin: 10px 0;
+}
+
+.star-rating i {
+    font-size: 18px;
+    color: #ddd;
+    transition: color 0.2s ease;
+}
+
+.star-rating i:first-child {
+    color: #da0000;
+}
+
+.star-rating i:hover,
+.star-rating i:hover ~ i {
+    color: #da0000;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.edit-button,
+.view-orders-button {
+    background: linear-gradient(90deg, #da0000, #b71c1c);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.edit-button:hover,
+.view-orders-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 0, 0, 0.3);
+}
+
+.view-orders-button {
+    background: linear-gradient(90deg, #6c757d, #5a6268);
+}
+
+.view-orders-button:hover {
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .profile-info-container,
+    .profile-card {
+        flex: 1 1 100%;
+        margin-bottom: 20px;
+    }
+
+    .profile-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .edit-button,
+    .view-orders-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-info-container h2 {
+        font-size: 24px;
+    }
+
+    .profile-info p {
+        font-size: 14px;
+    }
+
+    .profile-card h3 {
+        font-size: 18px;
+    }
+
+    .profile-card p.title {
+        font-size: 14px;
+    }
+}

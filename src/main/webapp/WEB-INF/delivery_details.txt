@@ -1,0 +1,5 @@
+ORD-413295593,DHL,Shipped
+ORD-1972950317,FedEx,On the Way
+ORD-594968582,FedEx,Shipped
+ORD-427415278,Daraz,Shipped
+ORD-39475505,PickMe,Processing

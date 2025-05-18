@@ -1,0 +1,292 @@
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #333;
+    line-height: 1.6;
+    padding: 0;
+}
+
+/* Container Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.header2 h1 {
+    font-size: 28px;
+    color: #222;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Cart Summary Styles */
+.cart-summary {
+    position: relative;
+}
+
+.cart-summary a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cart-summary a:hover {
+    background: rgba(255,255,255,0.9);
+    transform: scale(1.05);
+}
+
+/* Search and Sort Container */
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    align-items: center;
+}
+
+.search-bar {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #e63946;
+    box-shadow: 0 0 8px rgba(230,57,70,0.3);
+}
+
+.add-restaurant-btn {
+    background: linear-gradient(90deg, #e63946, #d00000);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-restaurant-btn:hover {
+    background: linear-gradient(90deg, #d00000, #b80000);
+    transform: scale(1.05);
+}
+
+/* Menu Grid Styles */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Food Card Styles */
+.food-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: cardReveal 0.5s ease-out forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+}
+
+.food-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.food-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-card:hover .food-image {
+    transform: scale(1.1);
+}
+
+.food-info {
+    padding: 20px;
+}
+
+.food-name {
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.store-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin: 8px 0;
+    font-weight: 500;
+}
+
+.food-price {
+    color: #e63946;
+    font-weight: 700;
+    margin: 8px 0;
+    font-size: 1.1em;
+}
+
+.add-to-cart {
+    background: linear-gradient(90deg, #e63946, #d00000);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+    font-weight: 600;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background: linear-gradient(90deg, #d00000, #b80000);
+    transform: scale(1.05);
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    color: #444;
+    font-size: 20px;
+    margin: 30px 0;
+    font-weight: 500;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Loading Spinner */
+.loading {
+    text-align: center;
+    color: #e63946;
+    font-size: 18px;
+    margin: 30px 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.loading::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 3px solid #e63946;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Cart Notification */
+.cart-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(90deg, #e63946, #d00000);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    font-weight: 500;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cardReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header2 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .controls {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .search-bar, .add-restaurant-btn {
+        width: 100%;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .food-card {
+        animation-delay: 0s;
+    }
+}

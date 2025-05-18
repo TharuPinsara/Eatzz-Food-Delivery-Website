@@ -1,0 +1,20 @@
+Cheese Pizza,1200.00,Colombo Pizza Hub,https://images.unsplash.com/photo-1565299624946-b28f40a0ae38
+Veg Burger,950.00,Burgers & More,https://images.unsplash.com/photo-1568901346375-23c9450c58cd
+Chicken Biryani,1450.00,Spice Garden,https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a
+Pasta Alfredo,1300.00,Pasta Palace,https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb
+Chocolate Cake,800.00,Sweet Delights,https://kirbiecravings.com/wp-content/uploads/2025/03/4-ingredient-healthier-chocolate-cake-no-eggs-3.jpg
+Rice and Curry,850.00,Traditional Lankan Cuisine,https://cdn.pixabay.com/photo/2021/06/10/02/28/rice-6324796_1280.jpg
+Hoppers (Appa),600.00,Hoppers Heaven,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNV8ccWVhcpnBDzeVHDbhOy_qJNmAl6Nr7gAZl7ocniI8IkFhxaPLTUag&s
+String Hoppers,700.00,Hoppers Heaven,https://cdn.pixabay.com/photo/2021/06/02/01/35/indiappa-6303118_1280.jpg
+Kottu Roti,1100.00,Traditional Lankan Cuisine,https://st2.depositphotos.com/4404621/11594/i/950/depositphotos_115943092-stock-photo-sri-lankan-kottu-roti.jpg
+Lamprais,1500.00,Traditional Lankan Cuisine,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfwe9lrR3_zHGti7QzY46fvwSjFS0OeS0a6w&s
+Parippu (Dhal Curry),450.00,Traditional Lankan Cuisine,https://t4.ftcdn.net/jpg/12/98/17/27/360_F_1298172777_F9cDWv2ZfqMXBQRetvU31PaucagMh8Od.jpg
+Pol Sambol,300.00,Traditional Lankan Cuisine,https://www.shutterstock.com/image-photo/coconut-sambal-srilankan-indian-spicy-260nw-1385467199.jpg
+Fish Ambul Thiyal,1250.00,Seafood Paradise,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiZYFp7NMiwEnzFA9mW-nBfpkhMA2I0FIO7A&s
+Watalappan,650.00,Sweet Delights,https://i.pinimg.com/736x/44/a0/fd/44a0fd85600261e66ba1f1554f58a294.jpg
+Kiribath,500.00,Traditional Lankan Cuisine,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiBofg6zdJFEVeo9WK0HkUR47S3Kv5ovjV-A&s
+Gotu Kola Sambol,400.00,Traditional Lankan Cuisine,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwFTJjs66zXsNvpqjVcGX8ylLHLTYYvQQoOg&s
+Jaffna Crab Curry,1800.00,Seafood Paradise,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWO3JXRWbueGSlvXkleqQy1EWLVJx-Pbf6RQ&s
+Egg Roti,550.00,Hoppers Heaven,https://www.shutterstock.com/image-photo/omelette-chapati-roll-franky-indian-260nw-2228945967.jpg
+Pittu,600.00,Traditional Lankan Cuisine,https://t4.ftcdn.net/jpg/04/19/63/05/360_F_419630515_FN5OzSxaWfM03KN9jJrpfYcv7teOlr0r.jpg
+Wade,70.00,Hoppers Heaven,https://kandy-taste.shophere.lk/wp-content/uploads/2024/03/sri-6305690_960_720.jpg

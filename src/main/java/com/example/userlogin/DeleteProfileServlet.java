@@ -10,84 +10,85 @@ import jakarta.servlet.http.HttpSession;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @WebServlet("/DeleteProfileServlet")
 public class DeleteProfileServlet extends HttpServlet {
-    private static final String USER_FILE = "/WEB-INF/users.txt";
+    private static final String USER_FILE = "WEB-INF/users.txt";
+    private static final Logger LOGGER = Logger.getLogger(DeleteProfileServlet.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get the username from the form
-        String usernameToDelete = request.getParameter("username");
-        System.err.println("DeleteProfileServlet: Attempting to delete user: " + usernameToDelete);
+        LOGGER.info("DeleteProfileServlet: Received POST request");
 
-        // Get the logged-in user from the session
         HttpSession session = request.getSession(false);
         String loggedUser = (session != null) ? (String) session.getAttribute("username") : null;
+        String username = request.getParameter("username");
 
-        // Verify the user is logged in and deleting their own account
-        if (loggedUser == null || !loggedUser.equals(usernameToDelete)) {
-            System.err.println("DeleteProfileServlet: Unauthorized action - loggedUser=" + loggedUser + ", usernameToDelete=" + usernameToDelete);
-            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Unauthorized%20action");
+        // Validate session and username
+        if (loggedUser == null || username == null || !loggedUser.equals(username)) {
+            LOGGER.warning("DeleteProfileServlet: Unauthorized access or invalid session for username: " + username);
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Unauthorized access or invalid session");
             return;
         }
 
-        // Path to users.txt
         String filePath = getServletContext().getRealPath(USER_FILE);
         File file = new File(filePath);
-        List<String> updatedUsers = new ArrayList<>();
-
-        // Check if file exists
         if (!file.exists()) {
-            System.err.println("DeleteProfileServlet: users.txt not found at: " + filePath);
-            response.sendRedirect(request.getContextPath() + "/index.jsp?error=User%20data%20file%20not%20found");
+            LOGGER.severe("DeleteProfileServlet: User database not found at: " + filePath);
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?error=User database not found");
             return;
         }
 
-        // Read and remove the user
+        // Read all users except the one to delete
+        List<String> updatedUsers = new ArrayList<>();
         boolean userFound = false;
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] details = line.split(",");
-                if (!details[0].equals(usernameToDelete)) {
-                    updatedUsers.add(line);
-                } else {
+                String[] details = line.split(",", -1);
+                if (details.length >= 1 && details[0].equals(username)) {
                     userFound = true;
+                    LOGGER.info("DeleteProfileServlet: Found user to delete: " + username);
+                    continue; // Skip the user to delete
                 }
+                updatedUsers.add(line);
             }
         } catch (IOException e) {
-            System.err.println("DeleteProfileServlet: Error reading users.txt: " + e.getMessage());
-            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Error%20deleting%20account");
+            LOGGER.severe("DeleteProfileServlet: Error reading user database: " + e.getMessage());
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Error reading user database: " + e.getMessage());
             return;
         }
 
         if (!userFound) {
-            System.err.println("DeleteProfileServlet: User not found in users.txt: " + usernameToDelete);
-            response.sendRedirect(request.getContextPath() + "/index.jsp?error=User%20not%20found");
+            LOGGER.warning("DeleteProfileServlet: User not found: " + username);
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?error=User not found");
             return;
         }
 
-        // Write back the updated list
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (String user : updatedUsers) {
-                writer.write(user);
+        // Write updated user list back to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String userLine : updatedUsers) {
+                writer.write(userLine);
                 writer.newLine();
             }
-            System.err.println("DeleteProfileServlet: User deleted successfully: " + usernameToDelete);
+            LOGGER.info("DeleteProfileServlet: Successfully updated users.txt, user deleted: " + username);
         } catch (IOException e) {
-            System.err.println("DeleteProfileServlet: Error writing to users.txt: " + e.getMessage());
-            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Error%20deleting%20account");
+            LOGGER.severe("DeleteProfileServlet: Error updating user database: " + e.getMessage());
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Error updating user database: " + e.getMessage());
             return;
         }
 
-        // Invalidate the session to log out the user
-        if (session != null) {
-            System.err.println("DeleteProfileServlet: Invalidating session for user: " + loggedUser);
-            session.invalidate();
-        }
-
-        // Redirect to the login page with a success message
-        response.sendRedirect(request.getContextPath() + "/index.jsp?success=Account%20deleted%20successfully");
+        // Invalidate session and redirect with success message
+        session.invalidate();
+        LOGGER.info("DeleteProfileServlet: Session invalidated for user: " + username);
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.sendRedirect(request.getContextPath() + "/index.jsp?success=Account deleted successfully");
     }
 }
