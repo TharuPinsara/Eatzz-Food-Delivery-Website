@@ -52,7 +52,11 @@ The **Eatzz Food Delivery** website is a platform designed to facilitate online 
 - **Backend:** Java Servlet, JSP
 - **Database:** Text File
 - **Server:** Apache Tomcat 9.0 or higher
+## Screenshots
 
+![Class Diagram](Files/Ss1 (1).png)
+![Class Diagram](Files/Ss1 (2).png)
+![Class Diagram](Files/Ss1 (3).png)
 ## Installation
 
 1. Clone the repository:
