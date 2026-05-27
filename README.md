@@ -54,9 +54,12 @@ The **Eatzz Food Delivery** website is a platform designed to facilitate online 
 - **Server:** Apache Tomcat 9.0 or higher
 ## Screenshots
 
-![Class Diagram](Files/Ss1 (1).png)
-![Class Diagram](Files/Ss1 (2).png)
-![Class Diagram](Files/Ss1 (3).png)
+![Screenshot 1](https://github.com/TharuPinsara/Eatzz-Food-Delivery-Website/raw/master/Files/Ss1%20(1).png)
+
+![Screenshot 2](https://github.com/TharuPinsara/Eatzz-Food-Delivery-Website/raw/master/Files/Ss1%20(2).png)
+
+![Screenshot 3](https://github.com/TharuPinsara/Eatzz-Food-Delivery-Website/raw/master/Files/Ss1%20(3).png)
+
 ## Installation
 
 1. Clone the repository:
